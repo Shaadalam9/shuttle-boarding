@@ -45,8 +45,10 @@ def gender_distribution(df):
     plt.savefig("plots/gender.eps")
     plt.savefig("plots/gender.png")
 
-    # Save the figure as an HTML file
-    mpld3.save_html(fig, "plots/gender.html")
+    # Save plot as HTML
+    html_str = mpld3.fig_to_html(plt.gcf())
+    with open("plots/gender.html", "w") as f:
+        f.write(html_str)
     plt.show()
 
 
@@ -66,8 +68,12 @@ def age_distribution(df):
     plt.ylabel('Count')
     plt.xticks(rotation=0)
     plt.savefig("plots/age.eps")
-    plt.savefig("plots/age.html")
     plt.savefig("plots/age.png")
+
+    # Save plot as HTML
+    html_str = mpld3.fig_to_html(plt.gcf())
+    with open("plots/age.html", "w") as f:
+        f.write(html_str)
 
 
 def demographic_distribution(df):
@@ -85,8 +91,13 @@ def demographic_distribution(df):
     plt.xlabel('Age (in years)')
     plt.ylabel('Count')
     plt.xticks(rotation=0)
+
+    # Save plot as HTML
+    html_str = mpld3.fig_to_html(plt.gcf())
+    with open("plots/country.html", "w") as f:
+        f.write(html_str)
+
     plt.savefig("plots/country.eps")
-    plt.savefig("plots/country.html")
     plt.savefig("plots/country.png")
 
 
@@ -104,8 +115,13 @@ def use_micro_mobility(df):
     ax.pie(counts, explode=explode, labels=frequency, autopct='%1.1f%%',
            shadow={'ox': -0.04, 'edgecolor': 'none', 'shade': 0.9}, startangle=90)
     plt.title('Use of micro-mobility')
+
+    # Save plot as HTML
+    html_str = mpld3.fig_to_html(fig)
+    with open("plots/micro-mobility.html", "w") as f:
+        f.write(html_str)
+
     plt.savefig("plots/micro-mobility.eps")
-    plt.savefig("plots/micro-mobility.html")
     plt.savefig("plots/micro-mobility.png")
 
 
@@ -124,8 +140,13 @@ def use_bus(df):
            shadow={'ox': -0.04, 'edgecolor': 'none', 'shade': 0.9}, startangle=90)
 
     plt.title('Use of public bus (per week)')
+
+    # Save plot as HTML
+    html_str = mpld3.fig_to_html(fig)
+    with open("plots/bus_use.html", "w") as f:
+        f.write(html_str)
+
     plt.savefig("plots/bus_use.eps")
-    plt.savefig("plots/bus_use.html")
     plt.savefig("plots/bus_use.png")
 
 
@@ -144,8 +165,13 @@ def viewing_assistance(df):
            shadow={'ox': -0.04, 'edgecolor': 'none', 'shade': 0.9}, startangle=90)
 
     plt.title('The Role of Viewing Assistance in Enhancing Navigation and Overcoming Language Barriers')
+
+    # Save plot as HTML
+    html_str = mpld3.fig_to_html(fig)
+    with open("plots/viewing_assistance.html", "w") as f:
+        f.write(html_str)
+
     plt.savefig("plots/viewing_assistance.eps")
-    plt.savefig("plots/viewing_assistance.html")
     plt.savefig("plots/viewing_assistance.png")
 
 
@@ -164,8 +190,13 @@ def NFC(df):
            shadow={'ox': -0.04, 'edgecolor': 'none', 'shade': 0.9}, startangle=90)
 
     plt.title('The Role of NFC while boarding')
+
+    # Save plot as HTML
+    html_str = mpld3.fig_to_html(fig)
+    with open("plots/NFC.html", "w") as f:
+        f.write(html_str)
+
     plt.savefig("plots/NFC.eps")
-    plt.savefig("plots/NFC.html")
     plt.savefig("plots/NFC.png")
 
 
@@ -180,21 +211,24 @@ def info_preboarding(df):
     # Get a sorted list of unique options from both columns
     unique_options = sorted(set(percentages_10.keys()).union(set(percentages_11.keys())))
 
-    # Create lists for plotting
-    values_10 = [percentages_10.get(option, 0) for option in unique_options]
-    values_11 = [percentages_11.get(option, 0) for option in unique_options]
+    # Capitalize the first letter of each option
+    unique_options = [option.capitalize() for option in unique_options]
 
-    counts_values_10 = [counts_10.get(option, 0) for option in unique_options]
-    counts_values_11 = [counts_11.get(option, 0) for option in unique_options]
+    # Create lists for plotting
+    values_10 = [percentages_10.get(option.lower(), 0) for option in unique_options]
+    values_11 = [percentages_11.get(option.lower(), 0) for option in unique_options]
+
+    counts_values_10 = [counts_10.get(option.lower(), 0) for option in unique_options]
+    counts_values_11 = [counts_11.get(option.lower(), 0) for option in unique_options]
 
     # Define bar width
-    bar_width = 0.35
+    bar_width = 0.3
     index = np.arange(len(unique_options))
 
     # Plot the data
     plt.figure(figsize=(14, 8))
-    bar1 = plt.barh(index, values_10, bar_width, color='skyblue', label='Mobile Screen')  # noqa:F841
-    bar2 = plt.barh(index + bar_width, values_11, bar_width, color='salmon', label='Public Screen')  # noqa:F841
+    plt.barh(index, values_10, bar_width, color='lightgreen', label='Mobile Screen')  # noqa:F841
+    plt.barh(index + bar_width, values_11, bar_width, color='skyblue', label='Public Screen')  # noqa:F841
 
     # Add text labels at the end of each bar
     for i in range(len(index)):
@@ -204,16 +238,17 @@ def info_preboarding(df):
                  va='center', ha='left', color='black', fontweight='bold')
 
     plt.xlabel('Percentage')
-    # plt.ylabel('Option')
-    # plt.title('Percentage of Participants Choosing Each Option')
     plt.yticks(index + bar_width / 2, unique_options)
     plt.xticks(range(0, 101, 10))  # Set x-axis ticks to come at every 10 units
     plt.legend(title='Screen Type')
 
     plt.tight_layout()  # Adjust layout to prevent label cutoff
     plt.savefig("plots/info_mobile_pre.eps")
-    plt.savefig("plots/info_mobile_pre.html")
     plt.savefig("plots/info_mobile_pre.png")
+    # Save plot as HTML
+    html_str = mpld3.fig_to_html(plt.gcf())
+    with open("plots/info_preboard.html", "w") as f:
+        f.write(html_str)
     plt.show()
 
 
@@ -231,14 +266,17 @@ def info_onboarding(df):
     unique_options = sorted(set(percentages_10.keys()).union(set(
         percentages_11.keys()).union(set(percentages_12.keys()))))
 
-    # Create lists for plotting
-    values_10 = [percentages_10.get(option, 0) for option in unique_options]
-    values_11 = [percentages_11.get(option, 0) for option in unique_options]
-    values_12 = [percentages_12.get(option, 0) for option in unique_options]
+    # Capitalize the first letter of each option
+    unique_options = [option.capitalize() for option in unique_options]
 
-    counts_values_10 = [counts_10.get(option, 0) for option in unique_options]
-    counts_values_11 = [counts_11.get(option, 0) for option in unique_options]
-    counts_values_12 = [counts_12.get(option, 0) for option in unique_options]
+    # Create lists for plotting
+    values_10 = [percentages_10.get(option.lower(), 0) for option in unique_options]
+    values_11 = [percentages_11.get(option.lower(), 0) for option in unique_options]
+    values_12 = [percentages_12.get(option.lower(), 0) for option in unique_options]
+
+    counts_values_10 = [counts_10.get(option.lower(), 0) for option in unique_options]
+    counts_values_11 = [counts_11.get(option.lower(), 0) for option in unique_options]
+    counts_values_12 = [counts_12.get(option.lower(), 0) for option in unique_options]
 
     # Define bar width
     bar_width = 0.25  # Adjusted the bar width to fit three bars
@@ -246,9 +284,9 @@ def info_onboarding(df):
 
     # Plot the data
     plt.figure(figsize=(14, 8))
-    bar1 = plt.barh(index, values_10, bar_width, color='skyblue', label='Public Screen')
-    bar2 = plt.barh(index + bar_width, values_11, bar_width, color='salmon', label='Private Screen')
-    bar3 = plt.barh(index + (2 * bar_width), values_12, bar_width, color='lightgreen', label='Mobile Screen')
+    plt.barh(index + (2 * bar_width), values_12, bar_width, color='lightgreen', label='Mobile Screen')
+    plt.barh(index + bar_width, values_11, bar_width, color='salmon', label='Private Screen')
+    plt.barh(index, values_10, bar_width, color='skyblue', label='Public Screen')
 
     # Add text labels at the end of each bar
     for i in range(len(index)):
@@ -260,16 +298,19 @@ def info_onboarding(df):
                  va='center', ha='left', color='black', fontweight='bold')
 
     plt.xlabel('Percentage')
-    # plt.ylabel('Option')
-    # plt.title('Percentage of participants choosing information after boarding on the shuttle bus')
     plt.yticks(index + bar_width, unique_options)
     plt.xticks(range(0, 101, 10))  # Set x-axis ticks to come at every 10 units
     plt.legend(title='Screen Type')
 
     plt.tight_layout()  # Adjust layout to prevent label cutoff
     plt.savefig("plots/info_onboard.eps")
-    plt.savefig("plots/info_onboard.html")
     plt.savefig("plots/info_onboard.png")
+
+    # Save plot as HTML
+    html_str = mpld3.fig_to_html(plt.gcf())
+    with open("plots/info_onboard.html", "w") as f:
+        f.write(html_str)
+
     plt.show()
 
 
@@ -295,13 +336,13 @@ dataframe = dataframe.with_columns(pl.col("Country").str.replace_many(
     ["India "], "India"))
 
 gender_distribution(dataframe)
-# age_distribution(dataframe)
-# demographic_distribution(dataframe)
-# use_micro_mobility(dataframe)
-# use_bus(dataframe)
-# viewing_assistance(dataframe)
-# NFC(dataframe)
-# info_preboarding(dataframe)
-# info_onboarding(dataframe)
+age_distribution(dataframe)
+demographic_distribution(dataframe)
+use_micro_mobility(dataframe)
+use_bus(dataframe)
+viewing_assistance(dataframe)
+NFC(dataframe)
+info_preboarding(dataframe)
+info_onboarding(dataframe)
 
 print("Execution Completed")
