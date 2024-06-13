@@ -26,23 +26,28 @@ def process_column(data):
 
 def gender_distribution(df):
     # Count the occurrences of each gender
-    gender_counts = df.group_by('Gender').agg(pl.count('Gender').alias('count')).collect()
+    gender_counts = df.groupby('Gender').agg(pl.count('Gender').alias('count')).collect()
 
     # Extract data for plotting
     genders = gender_counts['Gender'].to_list()
     counts = gender_counts['count'].to_list()
-    fig, ax = plt.subplots(figsize=(14, 8))
 
     # Plot the counts
-    plt.figure(figsize=(8, 6))
-    plt.bar(genders, counts, width=0.8, color=['pink', 'blue'], edgecolor='black')
-    plt.title('Gender Count')
-    plt.xlabel('Gender')
-    plt.ylabel('Count')
-    plt.xticks(rotation=0)
+    fig, ax = plt.subplots(figsize=(8, 6))
+    ax.bar(genders, counts, width=0.8, color=['pink', 'blue'], edgecolor='black')
+    ax.set_title('Gender Count')
+    ax.set_xlabel('Gender')
+    ax.set_ylabel('Count')
+    ax.set_xticks(range(len(genders)))
+    ax.set_xticklabels(genders, rotation=0)
+
+    # Save the figure in different formats
     plt.savefig("plots/gender.eps")
-    mpld3.save_html(fig, "plots/gender.html")
     plt.savefig("plots/gender.png")
+
+    # Save the figure as an HTML file
+    mpld3.save_html(fig, "plots/gender.html")
+    plt.show()
 
 
 def age_distribution(df):
