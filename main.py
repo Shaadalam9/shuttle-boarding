@@ -354,16 +354,20 @@ def info_onboarding(df):
     percentages_12, counts_12 = process_column([item for sublist in options_12 for item in sublist])
 
     # Get a sorted list of unique options from both columns
-    unique_options = sorted(set(percentages_10.keys()).union(set(percentages_11.keys()).union(set(percentages_12.keys()))))
+    unique_options = sorted(set(percentages_10.keys()).union(
+        set(percentages_11.keys()).union(set(percentages_12.keys()))))
+
+    # Capitalize the first letter of each option for y-axis labels
+    unique_options_capitalized = [opt.capitalize() for opt in unique_options]
 
     # Create lists for plotting
-    values_10 = [percentages_10.get(option.lower(), 0) for option in unique_options]
-    values_11 = [percentages_11.get(option.lower(), 0) for option in unique_options]
-    values_12 = [percentages_12.get(option.lower(), 0) for option in unique_options]
+    values_10 = [percentages_10.get(option, 0) for option in unique_options]
+    values_11 = [percentages_11.get(option, 0) for option in unique_options]
+    values_12 = [percentages_12.get(option, 0) for option in unique_options]
 
-    counts_values_10 = [counts_10.get(option.lower(), 0) for option in unique_options]
-    counts_values_11 = [counts_11.get(option.lower(), 0) for option in unique_options]
-    counts_values_12 = [counts_12.get(option.lower(), 0) for option in unique_options]
+    counts_values_10 = [counts_10.get(option, 0) for option in unique_options]
+    counts_values_11 = [counts_11.get(option, 0) for option in unique_options]
+    counts_values_12 = [counts_12.get(option, 0) for option in unique_options]
 
     # Define bar width
     bar_width = 0.25  # Adjusted the bar width to fit three bars
@@ -385,14 +389,14 @@ def info_onboarding(df):
     fig.update_layout(
         # title='Information Required Onboarding',
         xaxis_title='Percentage of Participants Choosing Each Option',
-        yaxis=dict(tickmode='array', tickvals=index + bar_width, ticktext=unique_options),
+        yaxis=dict(tickmode='array', tickvals=index + bar_width, ticktext=unique_options_capitalized),
         barmode='group',
         legend_title_text='Screen Type'
     )
 
     # Save the figure in different formats
     fig.write_image("plots/info_onboard.eps")
-    fig.write_image("plots/info_onboard.png", width=1600, height=900, scale=3)  # Add width, height, and scale
+    fig.write_image("plots/info_onboard.png", width=1000, height=600, scale=2)  # Add width, height, and scale
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/info_onboard.html", auto_open=True)
