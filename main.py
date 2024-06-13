@@ -23,7 +23,8 @@ def process_column(data):
 
 def process_options(series):
     # Split the comma-separated values, strip whitespace, convert to lowercase, and capitalize first letter
-    options_list = series.apply(lambda x: [opt.strip().lower().capitalize() for opt in x.split(",")], return_dtype=pl.List).to_list()
+    options_list = series.apply(lambda x: [opt.strip().lower().capitalize() for opt in x.split(",")],
+                                return_dtype=pl.List).to_list()
 
     # Define a mapping for longer option names to shorter versions
     option_mapping = {
@@ -51,7 +52,7 @@ def gender_distribution_bar(df):
 
     # Update layout
     fig.update_layout(
-        title='Gender Count',
+        # title='Gender Count',
         xaxis_title='Gender',
         yaxis_title='Count',
         xaxis=dict(tickmode='array', tickvals=genders, ticktext=genders)
@@ -59,7 +60,7 @@ def gender_distribution_bar(df):
 
     # Save the figure in different formats
     fig.write_image("plots/gender_bar.eps")
-    fig.write_image("plots/gender_bar.png")
+    fig.write_image("plots/gender_bar.png", width=1600, height=900, scale=3)
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/gender.html", auto_open=True)
@@ -80,12 +81,13 @@ def gender_distribution_pie(df):
 
     # Update layout
     fig.update_layout(
-        title='Gender Distribution'
+        # title='Gender Distribution',
+        xaxis=dict(tickangle=0)
     )
 
     # Save the figure in different formats
     fig.write_image("plots/gender_pie.eps")
-    fig.write_image("plots/gender_pie.png")
+    fig.write_image("plots/gender_pie.png", width=1600, height=900, scale=3)
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/gender_pie.html", auto_open=True)
@@ -106,7 +108,7 @@ def age_distribution(df):
 
     # Update layout
     fig.update_layout(
-        title='Age Distribution',
+        # title='Age Distribution',
         xaxis_title='Age (in years)',
         yaxis_title='Count',
         xaxis=dict(tickmode='array', tickvals=age, ticktext=age)
@@ -114,7 +116,7 @@ def age_distribution(df):
 
     # Save the figure in different formats
     fig.write_image("plots/age.eps")
-    fig.write_image("plots/age.png")
+    fig.write_image("plots/age.png", width=1600, height=900, scale=3)
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/age.html", auto_open=True)
@@ -142,7 +144,7 @@ def demographic_distribution_bar(df):
 
     # Update layout
     fig.update_layout(
-        title='Country Distribution',
+        # title='Country Distribution',
         xaxis_title='Country',
         yaxis_title='Count',
         xaxis=dict(tickmode='array', tickvals=countries, ticktext=countries)
@@ -150,7 +152,7 @@ def demographic_distribution_bar(df):
 
     # Save the figure in different formats
     fig.write_image("plots/country_bar.eps")
-    fig.write_image("plots/country_bar.png")
+    fig.write_image("plots/country_bar.png", width=1600, height=900, scale=3)
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/country_bar.html", auto_open=True)
@@ -170,12 +172,12 @@ def demographic_distribution_pie(df):
 
     # Update layout
     fig.update_layout(
-        title='Country Distribution'
+        # title='Country Distribution'
     )
 
     # Save the figure in different formats
     fig.write_image("plots/country_pie.eps")
-    fig.write_image("plots/country_pie.png")
+    fig.write_image("plots/country_pie.png", width=1600, height=900, scale=3)
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/country_pie.html", auto_open=True)
@@ -191,17 +193,16 @@ def use_micro_mobility(df):
 
     # Create the pie chart
     fig = go.Figure(data=[
-        go.Pie(labels=frequency, values=counts, hole=0.0, pull=[0, 0, 0, 0, 0, 0])
-    ])
+        go.Pie(labels=frequency, values=counts, hole=0.0, pull=[0, 0, 0, 0, 0, 0])])
 
     # Update layout
     fig.update_layout(
-        title='Use of Micro-mobility'
+        # title='Use of Micro-mobility'
     )
 
     # Save the figure in different formats
     fig.write_image("plots/micro-mobility.eps")
-    fig.write_image("plots/micro-mobility.png")
+    fig.write_image("plots/micro-mobility.png", width=1600, height=900, scale=3)
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/micro-mobility.html", auto_open=True)
@@ -222,12 +223,12 @@ def use_bus(df):
 
     # Update layout
     fig.update_layout(
-        title='Use of public bus (per week)'
+        # title='Use of public bus (per week)'
     )
 
     # Save the figure in different formats
     fig.write_image("plots/bus_use.eps")
-    fig.write_image("plots/bus_use.png")
+    fig.write_image("plots/bus_use.png", width=1600, height=900, scale=3)
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/bus_use.html", auto_open=True)
@@ -248,12 +249,12 @@ def viewing_assistance(df):
 
     # Update layout
     fig.update_layout(
-        title='The Role of Viewing Assistance in Enhancing Navigation and Overcoming Language Barriers'
+        # title='The Role of Viewing Assistance in Enhancing Navigation and Overcoming Language Barriers'
     )
 
     # Save the figure in different formats
     fig.write_image("plots/viewing_assistance.eps")
-    fig.write_image("plots/viewing_assistance.png")
+    fig.write_image("plots/viewing_assistance.png", width=1600, height=900, scale=3)
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/viewing_assistance.html", auto_open=True)
@@ -274,12 +275,12 @@ def NFC(df):
 
     # Update layout
     fig.update_layout(
-        title='The Role of NFC while boarding'
+        # title='The Role of NFC while boarding'
     )
 
     # Save the figure in different formats
     fig.write_image("plots/NFC.eps")
-    fig.write_image("plots/NFC.png")
+    fig.write_image("plots/NFC.png", width=1600, height=900, scale=3)
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/NFC.html", auto_open=True)
@@ -321,7 +322,7 @@ def info_preboarding(df):
 
     # Update layout
     fig.update_layout(
-        title='Information Required Preboarding',
+        # title='Information Required Preboarding',
         xaxis_title='Percentage',
         yaxis=dict(tickmode='array', tickvals=index + bar_width / 2, ticktext=unique_options),
         barmode='group',
@@ -330,7 +331,7 @@ def info_preboarding(df):
 
     # Save the figure in different formats
     fig.write_image("plots/info_mobile_pre.eps")
-    fig.write_image("plots/info_mobile_pre.png")
+    fig.write_image("plots/info_mobile_pre.png", width=1600, height=900, scale=3)
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/info_preboard.html", auto_open=True)
@@ -380,7 +381,7 @@ def info_onboarding(df):
 
     # Update layout
     fig.update_layout(
-        title='Information Required Onboarding',
+        # title='Information Required Onboarding',
         xaxis_title='Percentage',
         yaxis=dict(tickmode='array', tickvals=index + bar_width, ticktext=unique_options),
         barmode='group',
@@ -389,7 +390,7 @@ def info_onboarding(df):
 
     # Save the figure in different formats
     fig.write_image("plots/info_onboard.eps")
-    fig.write_image("plots/info_onboard.png")
+    fig.write_image("plots/info_onboard.png", width=1600, height=900, scale=3)
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/info_onboard.html", auto_open=True)
@@ -441,7 +442,7 @@ def correlation_matrix_1(df):
     )
     # Save the figure in different formats
     fig.write_image("plots/correlation_matrix_1.eps")
-    fig.write_image("plots/correlation_matrix_1.png")
+    fig.write_image("plots/correlation_matrix_1.png", width=1600, height=900, scale=3)
 
     # Show the plot
     fig.show()
@@ -461,8 +462,10 @@ def correlation_matrix_2(df):
 
     # Create binary matrices for each column using MultiLabelBinarizer
     mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10), columns=[f"{col}" for col in mlb.classes_], dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11), columns=[f"{col}" for col in mlb.classes_], dtype=int)
+    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10),
+                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
+    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11),
+                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
 
     # Calculate the pairwise correlation between the two columns
     correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
@@ -491,7 +494,7 @@ def correlation_matrix_2(df):
 
     # Save the figure in different formats
     fig.write_image("plots/correlation_matrix_2.eps")
-    fig.write_image("plots/correlation_matrix_2.png")
+    fig.write_image("plots/correlation_matrix_2.png", width=1600, height=900, scale=3)
 
     # Show the plot
     fig.show()
@@ -511,8 +514,10 @@ def correlation_matrix_3(df):
 
     # Create binary matrices for each column using MultiLabelBinarizer
     mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10), columns=[f"{col}" for col in mlb.classes_], dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11), columns=[f"{col}" for col in mlb.classes_], dtype=int)
+    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10),
+                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
+    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11),
+                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
 
     # Calculate the pairwise correlation between the two columns
     correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
@@ -541,7 +546,7 @@ def correlation_matrix_3(df):
 
     # Save the figure in different formats
     fig.write_image("plots/correlation_matrix_3.eps")
-    fig.write_image("plots/correlation_matrix_3.png")
+    fig.write_image("plots/correlation_matrix_3.png", width=1600, height=900, scale=3)
 
     # Show the plot
     fig.show()
@@ -561,8 +566,10 @@ def correlation_matrix_4(df):
 
     # Create binary matrices for each column using MultiLabelBinarizer
     mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10), columns=[f"{col}" for col in mlb.classes_], dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11), columns=[f"{col}" for col in mlb.classes_], dtype=int)
+    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10),
+                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
+    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11),
+                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
 
     # Calculate the pairwise correlation between the two columns
     correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
@@ -591,7 +598,7 @@ def correlation_matrix_4(df):
 
     # Save the figure in different formats
     fig.write_image("plots/correlation_matrix_4.eps")
-    fig.write_image("plots/correlation_matrix_4.png")
+    fig.write_image("plots/correlation_matrix_4.png", width=1600, height=900, scale=3)
 
     # Show the plot
     fig.show()
@@ -611,8 +618,10 @@ def correlation_matrix_5(df):
 
     # Create binary matrices for each column using MultiLabelBinarizer
     mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10), columns=[f"{col}" for col in mlb.classes_], dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11), columns=[f"{col}" for col in mlb.classes_], dtype=int)
+    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10),
+                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
+    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11),
+                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
 
     # Calculate the pairwise correlation between the two columns
     correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
@@ -641,7 +650,7 @@ def correlation_matrix_5(df):
 
     # Save the figure in different formats
     fig.write_image("plots/correlation_matrix_5.eps")
-    fig.write_image("plots/correlation_matrix_5.png")
+    fig.write_image("plots/correlation_matrix_5.png", width=1600, height=900, scale=3)
 
     # Show the plot
     fig.show()
@@ -661,8 +670,10 @@ def correlation_matrix_6(df):
 
     # Create binary matrices for each column using MultiLabelBinarizer
     mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10), columns=[f"{col}" for col in mlb.classes_], dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11), columns=[f"{col}" for col in mlb.classes_], dtype=int)
+    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10),
+                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
+    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11),
+                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
 
     # Calculate the pairwise correlation between the two columns
     correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
@@ -691,7 +702,7 @@ def correlation_matrix_6(df):
 
     # Save the figure in different formats
     fig.write_image("plots/correlation_matrix_6.eps")
-    fig.write_image("plots/correlation_matrix_6.png")
+    fig.write_image("plots/correlation_matrix_6.png", width=1600, height=900, scale=3)
 
     # Show the plot
     fig.show()
@@ -711,8 +722,10 @@ def correlation_matrix_7(df):
 
     # Create binary matrices for each column using MultiLabelBinarizer
     mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10), columns=[f"{col}" for col in mlb.classes_], dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11), columns=[f"{col}" for col in mlb.classes_], dtype=int)
+    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10),
+                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
+    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11),
+                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
 
     # Calculate the pairwise correlation between the two columns
     correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
@@ -741,7 +754,7 @@ def correlation_matrix_7(df):
 
     # Save the figure in different formats
     fig.write_image("plots/correlation_matrix_7.eps")
-    fig.write_image("plots/correlation_matrix_7.png")
+    fig.write_image("plots/correlation_matrix_7.png", width=1600, height=900, scale=3)
 
     # Show the plot
     fig.show()
