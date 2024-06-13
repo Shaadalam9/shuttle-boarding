@@ -3,6 +3,7 @@
 import polars as pl
 import matplotlib.pyplot as plt
 import numpy as np
+import mpld3
 
 
 # Define a custom renaming logic based on column indices
@@ -30,6 +31,7 @@ def gender_distribution(df):
     # Extract data for plotting
     genders = gender_counts['Gender'].to_list()
     counts = gender_counts['count'].to_list()
+    fig, ax = plt.subplots(figsize=(14, 8))
 
     # Plot the counts
     plt.figure(figsize=(8, 6))
@@ -39,6 +41,7 @@ def gender_distribution(df):
     plt.ylabel('Count')
     plt.xticks(rotation=0)
     plt.savefig("plots/gender.eps")
+    mpld3.save_html(fig, "plots/gender.html")
     plt.savefig("plots/gender.png")
 
 
@@ -58,6 +61,7 @@ def age_distribution(df):
     plt.ylabel('Count')
     plt.xticks(rotation=0)
     plt.savefig("plots/age.eps")
+    plt.savefig("plots/age.html")
     plt.savefig("plots/age.png")
 
 
@@ -77,6 +81,7 @@ def demographic_distribution(df):
     plt.ylabel('Count')
     plt.xticks(rotation=0)
     plt.savefig("plots/country.eps")
+    plt.savefig("plots/country.html")
     plt.savefig("plots/country.png")
 
 
@@ -95,6 +100,7 @@ def use_micro_mobility(df):
            shadow={'ox': -0.04, 'edgecolor': 'none', 'shade': 0.9}, startangle=90)
     plt.title('Use of micro-mobility')
     plt.savefig("plots/micro-mobility.eps")
+    plt.savefig("plots/micro-mobility.html")
     plt.savefig("plots/micro-mobility.png")
 
 
@@ -114,6 +120,7 @@ def use_bus(df):
 
     plt.title('Use of public bus (per week)')
     plt.savefig("plots/bus_use.eps")
+    plt.savefig("plots/bus_use.html")
     plt.savefig("plots/bus_use.png")
 
 
@@ -133,6 +140,7 @@ def viewing_assistance(df):
 
     plt.title('The Role of Viewing Assistance in Enhancing Navigation and Overcoming Language Barriers')
     plt.savefig("plots/viewing_assistance.eps")
+    plt.savefig("plots/viewing_assistance.html")
     plt.savefig("plots/viewing_assistance.png")
 
 
@@ -152,6 +160,7 @@ def NFC(df):
 
     plt.title('The Role of NFC while boarding')
     plt.savefig("plots/NFC.eps")
+    plt.savefig("plots/NFC.html")
     plt.savefig("plots/NFC.png")
 
 
@@ -198,6 +207,7 @@ def info_preboarding(df):
 
     plt.tight_layout()  # Adjust layout to prevent label cutoff
     plt.savefig("plots/info_mobile_pre.eps")
+    plt.savefig("plots/info_mobile_pre.html")
     plt.savefig("plots/info_mobile_pre.png")
     plt.show()
 
@@ -253,6 +263,7 @@ def info_onboarding(df):
 
     plt.tight_layout()  # Adjust layout to prevent label cutoff
     plt.savefig("plots/info_onboard.eps")
+    plt.savefig("plots/info_onboard.html")
     plt.savefig("plots/info_onboard.png")
     plt.show()
 
@@ -279,13 +290,13 @@ dataframe = dataframe.with_columns(pl.col("Country").str.replace_many(
     ["India "], "India"))
 
 gender_distribution(dataframe)
-age_distribution(dataframe)
-demographic_distribution(dataframe)
-use_micro_mobility(dataframe)
-use_bus(dataframe)
-viewing_assistance(dataframe)
-NFC(dataframe)
-info_preboarding(dataframe)
-info_onboarding(dataframe)
+# age_distribution(dataframe)
+# demographic_distribution(dataframe)
+# use_micro_mobility(dataframe)
+# use_bus(dataframe)
+# viewing_assistance(dataframe)
+# NFC(dataframe)
+# info_preboarding(dataframe)
+# info_onboarding(dataframe)
 
 print("Execution Completed")
