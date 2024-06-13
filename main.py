@@ -344,14 +344,9 @@ def info_onboarding(df):
     column_12_data = df.select('Information required onboarding (mobile screen)').collect().to_series()
 
     # Process options
-    options_10 = process_options(column_10_data)
-    options_11 = process_options(column_11_data)
-    options_12 = process_options(column_12_data)
-
-    # Flatten lists and process columns
-    percentages_10, counts_10 = process_column([item for sublist in options_10 for item in sublist])
-    percentages_11, counts_11 = process_column([item for sublist in options_11 for item in sublist])
-    percentages_12, counts_12 = process_column([item for sublist in options_12 for item in sublist])
+    percentages_10, counts_10 = process_column(column_10_data)
+    percentages_11, counts_11 = process_column(column_11_data)
+    percentages_12, counts_12 = process_column(column_12_data)
 
     # Get a sorted list of unique options from both columns
     unique_options = sorted(set(percentages_10.keys()).union(
@@ -396,7 +391,7 @@ def info_onboarding(df):
 
     # Save the figure in different formats
     fig.write_image("plots/info_onboard.eps")
-    fig.write_image("plots/info_onboard.png", width=1000, height=600, scale=2)  # Add width, height, and scale
+    fig.write_image("plots/info_onboard.png", width=1600, height=900, scale=3)  # Add width, height, and scale
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/info_onboard.html", auto_open=True)
