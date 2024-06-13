@@ -1,6 +1,6 @@
 # Shuttle Bus Survey
 
-This repository contains visualizations for the Shuttle Bus Survey. The visualizations include various demographic distributions, micro-mobility usage, and information preferences before and after boarding the shuttle bus. The visualizations are created using Python, Polars, and Plotly.
+This repository contains visualizations for the Shuttle Bus Survey. The visualizations include various demographic distributions, micro-mobility usage, and information preferences before and after boarding the shuttle bus.
 
 ## Author
 
