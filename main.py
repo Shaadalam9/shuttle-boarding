@@ -355,6 +355,11 @@ def info_onboarding(df):
     # Capitalize the first letter of each option for y-axis labels
     unique_options_capitalized = [opt.capitalize() for opt in unique_options]
 
+    # Replace 'safety information and protocols' with 'safety protocols'
+    unique_options_capitalized = ['Safety protocols' if opt ==
+                                  'Safety information and protocols and emergency call option' else
+                                  opt for opt in unique_options_capitalized]
+
     # Create lists for plotting
     values_10 = [percentages_10.get(option, 0) for option in unique_options]
     values_11 = [percentages_11.get(option, 0) for option in unique_options]
@@ -785,23 +790,23 @@ dataframe = dataframe.with_columns(pl.col("Country").str.replace_many(
 dataframe = dataframe.with_columns(pl.col("Country").str.replace_many(
     ["India "], "India"))
 
-gender_distribution_bar(dataframe)
-gender_distribution_pie(dataframe)
-age_distribution(dataframe)
-demographic_distribution_bar(dataframe)
-demographic_distribution_pie(dataframe)
-use_micro_mobility(dataframe)
-use_bus(dataframe)
-viewing_assistance(dataframe)
-NFC(dataframe)
-info_preboarding(dataframe)
+# gender_distribution_bar(dataframe)
+# gender_distribution_pie(dataframe)
+# age_distribution(dataframe)
+# demographic_distribution_bar(dataframe)
+# demographic_distribution_pie(dataframe)
+# use_micro_mobility(dataframe)
+# use_bus(dataframe)
+# viewing_assistance(dataframe)
+# NFC(dataframe)
+# info_preboarding(dataframe)
 info_onboarding(dataframe)
-correlation_matrix_1(dataframe)
-correlation_matrix_2(dataframe)
-correlation_matrix_3(dataframe)
-correlation_matrix_4(dataframe)
-correlation_matrix_5(dataframe)
-correlation_matrix_6(dataframe)
-correlation_matrix_7(dataframe)
+# correlation_matrix_1(dataframe)
+# correlation_matrix_2(dataframe)
+# correlation_matrix_3(dataframe)
+# correlation_matrix_4(dataframe)
+# correlation_matrix_5(dataframe)
+# correlation_matrix_6(dataframe)
+# correlation_matrix_7(dataframe)
 
 print("Execution Completed")
