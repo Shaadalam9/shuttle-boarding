@@ -31,8 +31,8 @@ def process_options(series):
         "Safety information and protocols and emergency call option": "Safety information",
     }
 
-    # Apply the mapping
-    options_list = [[option_mapping.get(opt, opt) for opt in sublist] for sublist in options_list]
+    # Apply the mapping and capitalize the first letter of each option
+    options_list = [[option_mapping.get(opt, opt).capitalize() for opt in sublist] for sublist in options_list]
 
     return options_list
 
@@ -323,7 +323,7 @@ def info_preboarding(df):
     # Update layout
     fig.update_layout(
         # title='Information Required Preboarding',
-        xaxis_title='Percentage',
+        xaxis_title='Percentage of Participants Choosing Each Option',
         yaxis=dict(tickmode='array', tickvals=index + bar_width / 2, ticktext=unique_options),
         barmode='group',
         legend_title_text='Screen Type'
@@ -343,16 +343,18 @@ def info_onboarding(df):
     column_11_data = df.select('Information required onboarding (private screen)').collect().to_series()
     column_12_data = df.select('Information required onboarding (mobile screen)').collect().to_series()
 
-    percentages_10, counts_10 = process_column(column_10_data)
-    percentages_11, counts_11 = process_column(column_11_data)
-    percentages_12, counts_12 = process_column(column_12_data)
+    # Process options
+    options_10 = process_options(column_10_data)
+    options_11 = process_options(column_11_data)
+    options_12 = process_options(column_12_data)
+
+    # Flatten lists and process columns
+    percentages_10, counts_10 = process_column([item for sublist in options_10 for item in sublist])
+    percentages_11, counts_11 = process_column([item for sublist in options_11 for item in sublist])
+    percentages_12, counts_12 = process_column([item for sublist in options_12 for item in sublist])
 
     # Get a sorted list of unique options from both columns
-    unique_options = sorted(set(percentages_10.keys()).union(set(
-        percentages_11.keys()).union(set(percentages_12.keys()))))
-
-    # Capitalize the first letter of each option
-    unique_options = [option.capitalize() for option in unique_options]
+    unique_options = sorted(set(percentages_10.keys()).union(set(percentages_11.keys()).union(set(percentages_12.keys()))))
 
     # Create lists for plotting
     values_10 = [percentages_10.get(option.lower(), 0) for option in unique_options]
@@ -382,7 +384,7 @@ def info_onboarding(df):
     # Update layout
     fig.update_layout(
         # title='Information Required Onboarding',
-        xaxis_title='Percentage',
+        xaxis_title='Percentage of Participants Choosing Each Option',
         yaxis=dict(tickmode='array', tickvals=index + bar_width, ticktext=unique_options),
         barmode='group',
         legend_title_text='Screen Type'
@@ -390,7 +392,7 @@ def info_onboarding(df):
 
     # Save the figure in different formats
     fig.write_image("plots/info_onboard.eps")
-    fig.write_image("plots/info_onboard.png", width=1600, height=900, scale=3)
+    fig.write_image("plots/info_onboard.png", width=1600, height=900, scale=3)  # Add width, height, and scale
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/info_onboard.html", auto_open=True)
