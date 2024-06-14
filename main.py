@@ -76,13 +76,13 @@ def gender_distribution_pie(df):
 
     # Create the pie chart
     fig = go.Figure(data=[
-        go.Pie(labels=genders, values=counts, hole=0.0, marker=dict(colors=['pink', 'blue']))
+        go.Pie(labels=genders, values=counts, hole=0.0, marker=dict(colors=['pink', 'blue']), showlegend=True)
     ])
 
     # Update layout
     fig.update_layout(
         # title='Gender Distribution',
-        xaxis=dict(tickangle=0)
+        legend_title_text="Gender"
     )
 
     # Save the figure in different formats
@@ -173,6 +173,7 @@ def demographic_distribution_pie(df):
     # Update layout
     fig.update_layout(
         # title='Country Distribution'
+        legend_title_text="Country"
     )
 
     # Save the figure in different formats
@@ -191,13 +192,30 @@ def use_micro_mobility(df):
     frequency = frequency_counts['Micro-mobillity frequency'].to_list()
     counts = frequency_counts['count'].to_list()
 
+    # Desired order of the legend items
+    desired_order = [
+        "Everyday",
+        "4 to 6 days a week",
+        "1 to 3 days a week",
+        "Once a month to once a week",
+        "Less than once a month",
+        "Never"
+    ]
+
+    # Ensure the desired order is respected
+    ordered_indices = [frequency.index(item) for item in desired_order if item in frequency]
+    ordered_frequency = [frequency[i] for i in ordered_indices]
+    ordered_counts = [counts[i] for i in ordered_indices]
+
     # Create the pie chart
     fig = go.Figure(data=[
-        go.Pie(labels=frequency, values=counts, hole=0.0, pull=[0, 0, 0, 0, 0, 0])])
+        go.Pie(labels=ordered_frequency, values=ordered_counts, hole=0.0,
+               pull=[0] * len(ordered_frequency), sort=False)])
 
     # Update layout
     fig.update_layout(
-        # title='Use of Micro-mobility'
+        legend_title_text='Micro-mobility Usage Frequency',
+        legend=dict(itemsizing='constant', font=dict(size=12))
     )
 
     # Save the figure in different formats
@@ -216,14 +234,29 @@ def use_bus(df):
     frequency = frequency_counts['Bus frequency'].to_list()
     counts = frequency_counts['count'].to_list()
 
+    # Desired order of the legend items
+    desired_order = [
+        "0 times",
+        "1–2 times",
+        "3–4 times",
+        "5–6 times",
+        "7 or more times"
+    ]
+
+    # Ensure the desired order is respected
+    ordered_indices = [frequency.index(item) for item in desired_order if item in frequency]
+    ordered_frequency = [frequency[i] for i in ordered_indices]
+    ordered_counts = [counts[i] for i in ordered_indices]
+
     # Create the pie chart
     fig = go.Figure(data=[
-        go.Pie(labels=frequency, values=counts, hole=0.0, pull=[0, 0, 0, 0, 0])
-    ])
+        go.Pie(labels=ordered_frequency, values=ordered_counts, hole=0.0,
+               pull=[0] * len(ordered_frequency), sort=False)])
 
     # Update layout
     fig.update_layout(
-        # title='Use of public bus (per week)'
+        legend_title_text='Bus Usage Frequency',
+        legend=dict(itemsizing='constant', font=dict(size=12))
     )
 
     # Save the figure in different formats
@@ -242,15 +275,52 @@ def viewing_assistance(df):
     frequency = frequency_counts['Assistance feature valuable?'].to_list()
     counts = frequency_counts['count'].to_list()
 
+    # Desired order of the legend items
+    desired_order = [
+        "Strongly disagree",
+        "Disagree",
+        "Neither disagree nor agree",
+        "Agree",
+        "Strongly agree"
+    ]
+
+    # Ensure the desired order is respected and include zero counts for missing items
+    ordered_frequency = []
+    ordered_counts = []
+    for item in desired_order:
+        if item in frequency:
+            index = frequency.index(item)
+            ordered_frequency.append(frequency[index])
+            ordered_counts.append(counts[index])
+        else:
+            ordered_frequency.append(item)
+            ordered_counts.append(0)
+
     # Create the pie chart
     fig = go.Figure(data=[
-        go.Pie(labels=frequency, values=counts, hole=0.0, pull=[0, 0, 0, 0])
+        go.Pie(
+            labels=ordered_frequency,
+            values=ordered_counts,
+            hole=0.0,
+            pull=[0] * len(ordered_frequency),
+            sort=False,
+            textinfo='percent',
+            insidetextorientation='horizontal',
+            hoverinfo='label+percent'
+        )
     ])
 
     # Update layout
     fig.update_layout(
-        # title='The Role of Viewing Assistance in Enhancing Navigation and Overcoming Language Barriers'
+        legend_title_text='Viewing assistance necessity',
+        legend=dict(itemsizing='constant', font=dict(size=12))
     )
+
+    # Customizing the text to hide 0% labels
+    fig.update_traces(texttemplate=[
+        f'{percent:.2f}%' if percent > 0 else ''
+        for label, percent in zip(ordered_frequency, [c / sum(ordered_counts) * 100 for c in ordered_counts])
+    ])
 
     # Save the figure in different formats
     fig.write_image("plots/viewing_assistance.eps")
@@ -268,15 +338,52 @@ def NFC(df):
     frequency = frequency_counts['NFC feature valuable'].to_list()
     counts = frequency_counts['count'].to_list()
 
+    # Desired order of the legend items
+    desired_order = [
+        "Strongly disagree",
+        "Disagree",
+        "Neither disagree nor agree",
+        "Agree",
+        "Strongly agree"
+    ]
+
+    # Ensure the desired order is respected and include zero counts for missing items
+    ordered_frequency = []
+    ordered_counts = []
+    for item in desired_order:
+        if item in frequency:
+            index = frequency.index(item)
+            ordered_frequency.append(frequency[index])
+            ordered_counts.append(counts[index])
+        else:
+            ordered_frequency.append(item)
+            ordered_counts.append(0)
+
     # Create the pie chart
     fig = go.Figure(data=[
-        go.Pie(labels=frequency, values=counts, hole=0.0, pull=[0, 0, 0, 0])
+        go.Pie(
+            labels=ordered_frequency,
+            values=ordered_counts,
+            hole=0.0,
+            pull=[0] * len(ordered_frequency),
+            sort=False,
+            textinfo='percent',
+            insidetextorientation='horizontal',
+            hoverinfo='label+percent'
+        )
     ])
 
     # Update layout
     fig.update_layout(
-        # title='The Role of NFC while boarding'
+        legend_title_text='NFC necessity',
+        legend=dict(itemsizing='constant', font=dict(size=12))
     )
+
+    # Customizing the text to hide 0% labels
+    fig.update_traces(texttemplate=[
+        f'{percent:.2f}%' if percent > 0 else ''
+        for label, percent in zip(ordered_frequency, [c / sum(ordered_counts) * 100 for c in ordered_counts])
+    ])
 
     # Save the figure in different formats
     fig.write_image("plots/NFC.eps")
@@ -790,23 +897,23 @@ dataframe = dataframe.with_columns(pl.col("Country").str.replace_many(
 dataframe = dataframe.with_columns(pl.col("Country").str.replace_many(
     ["India "], "India"))
 
-# gender_distribution_bar(dataframe)
-# gender_distribution_pie(dataframe)
-# age_distribution(dataframe)
-# demographic_distribution_bar(dataframe)
-# demographic_distribution_pie(dataframe)
-# use_micro_mobility(dataframe)
-# use_bus(dataframe)
-# viewing_assistance(dataframe)
-# NFC(dataframe)
-# info_preboarding(dataframe)
+gender_distribution_bar(dataframe)
+gender_distribution_pie(dataframe)
+age_distribution(dataframe)
+demographic_distribution_bar(dataframe)
+demographic_distribution_pie(dataframe)
+use_micro_mobility(dataframe)
+use_bus(dataframe)
+viewing_assistance(dataframe)
+NFC(dataframe)
+info_preboarding(dataframe)
 info_onboarding(dataframe)
-# correlation_matrix_1(dataframe)
-# correlation_matrix_2(dataframe)
-# correlation_matrix_3(dataframe)
-# correlation_matrix_4(dataframe)
-# correlation_matrix_5(dataframe)
-# correlation_matrix_6(dataframe)
-# correlation_matrix_7(dataframe)
+correlation_matrix_1(dataframe)
+correlation_matrix_2(dataframe)
+correlation_matrix_3(dataframe)
+correlation_matrix_4(dataframe)
+correlation_matrix_5(dataframe)
+correlation_matrix_6(dataframe)
+correlation_matrix_7(dataframe)
 
 print("Execution Completed")
