@@ -23,8 +23,8 @@ def process_column(data):
 
 def process_options(series):
     # Split the comma-separated values, strip whitespace, convert to lowercase, and capitalize first letter
-    options_list = series.apply(lambda x: [opt.strip().lower().capitalize() for opt in x.split(",")],
-                                return_dtype=pl.List).to_list()
+    options_list = series.map_elements(lambda x: [opt.strip().lower().capitalize() for opt in x.split(",")],
+                                       return_dtype=pl.List).to_list()
 
     # Define a mapping for longer option names to shorter versions
     option_mapping = {
@@ -39,7 +39,7 @@ def process_options(series):
 
 def gender_distribution_bar(df):
     # Count the occurrences of each gender
-    gender_counts = df.groupby('Gender').agg(pl.count('Gender').alias('count')).collect()
+    gender_counts = df.group_by('Gender').agg(pl.count('Gender').alias('count')).collect()
 
     # Extract data for plotting
     genders = gender_counts['Gender'].to_list()
@@ -68,7 +68,7 @@ def gender_distribution_bar(df):
 
 def gender_distribution_pie(df):
     # Count the occurrences of each gender
-    gender_counts = df.groupby('Gender').agg(pl.count('Gender').alias('count')).collect()
+    gender_counts = df.group_by('Gender').agg(pl.count('Gender').alias('count')).collect()
 
     # Extract data for plotting
     genders = gender_counts['Gender'].to_list()
@@ -883,44 +883,46 @@ def correlation_matrix_7(df):
     fig.write_html("plots/correlation_matrix_7.html", auto_open=False)
 
 
-csv_file_path = 'response.csv'
+# Execute analysis
+if __name__ == "__main__":
 
-# Read the CSV file into a Polars LazyFrame
-dataframe = pl.scan_csv(csv_file_path)
+    csv_file_path = 'response.csv'
+    # Read the CSV file into a Polars LazyFrame
+    dataframe = pl.scan_csv(csv_file_path)
 
-# Filter out the responses who haven't read the instruction or doesn't gave the consent
-dataframe = dataframe.filter((pl.col("Have you read and understood the above instructions?") == "Yes")
-                             & (pl.col("Consent to participate") == "Yes"))
+    # Filter out the responses who haven't read the instruction or doesn't gave the consent
+    dataframe = dataframe.filter((pl.col("Have you read and understood the above instructions?") == "Yes")
+                                 & (pl.col("Consent to participate") == "Yes"))
 
-# Replace all variation of Netherlands to maintain consistency
-dataframe = dataframe.with_columns(pl.col("Country").str.replace_many(
-    ["NL", "The Netherlands", "netherlands", "Netherlands "], "Netherlands"))
+    # Replace all variation of Netherlands to maintain consistency
+    dataframe = dataframe.with_columns(pl.col("Country").str.replace_many(
+        ["NL", "The Netherlands", "netherlands", "Netherlands "], "Netherlands"))
 
-# Replace all variation of Germany to maintain consistency
-dataframe = dataframe.with_columns(pl.col("Country").str.replace_many(
-    ["Germany "], "Germany"))
+    # Replace all variation of Germany to maintain consistency
+    dataframe = dataframe.with_columns(pl.col("Country").str.replace_many(
+        ["Germany "], "Germany"))
 
-# Replace all variation of India to maintain consistency
-dataframe = dataframe.with_columns(pl.col("Country").str.replace_many(
-    ["India "], "India"))
+    # Replace all variation of India to maintain consistency
+    dataframe = dataframe.with_columns(pl.col("Country").str.replace_many(
+        ["India "], "India"))
 
-gender_distribution_bar(dataframe)
-gender_distribution_pie(dataframe)
-age_distribution(dataframe)
-demographic_distribution_bar(dataframe)
-demographic_distribution_pie(dataframe)
-use_micro_mobility(dataframe)
-use_bus(dataframe)
-viewing_assistance(dataframe)
-NFC(dataframe)
-info_preboarding(dataframe)
-info_onboarding(dataframe)
-correlation_matrix_1(dataframe)
-correlation_matrix_2(dataframe)
-correlation_matrix_3(dataframe)
-correlation_matrix_4(dataframe)
-correlation_matrix_5(dataframe)
-correlation_matrix_6(dataframe)
-correlation_matrix_7(dataframe)
+    gender_distribution_bar(dataframe)
+    gender_distribution_pie(dataframe)
+    age_distribution(dataframe)
+    demographic_distribution_bar(dataframe)
+    demographic_distribution_pie(dataframe)
+    use_micro_mobility(dataframe)
+    use_bus(dataframe)
+    viewing_assistance(dataframe)
+    NFC(dataframe)
+    info_preboarding(dataframe)
+    info_onboarding(dataframe)
+    correlation_matrix_1(dataframe)
+    correlation_matrix_2(dataframe)
+    correlation_matrix_3(dataframe)
+    correlation_matrix_4(dataframe)
+    correlation_matrix_5(dataframe)
+    correlation_matrix_6(dataframe)
+    correlation_matrix_7(dataframe)
 
-print("Execution Completed")
+    print("Execution Completed")
