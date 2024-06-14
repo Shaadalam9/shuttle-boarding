@@ -45,9 +45,9 @@ This code was developed by [md_shadab_alam@outlook.com](mailto:md_shadab_alam@ou
 
 [![Viewing Assistance](plots/viewing_assistance.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/viewing_assistance.html)
 
-### NFC Feature Pie Chart
+### NFC Feature
 
-[![NFC Feature Pie Chart](plots/NFC.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/NFC.html)
+[![NFC Feature](plots/NFC.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/NFC.html)
 
 ### Information Required Preboarding
 
