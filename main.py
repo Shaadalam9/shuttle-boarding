@@ -47,7 +47,7 @@ def gender_distribution_bar(df):
 
     # Create the bar plot
     fig = go.Figure(data=[
-        go.Bar(name='Gender', x=genders, y=counts, marker_color=['pink', 'blue'])
+        go.Bar(name='Gender', x=genders, y=counts, marker_color=['red', 'blue'])
     ])
 
     # Update layout
@@ -76,7 +76,7 @@ def gender_distribution_pie(df):
 
     # Create the pie chart
     fig = go.Figure(data=[
-        go.Pie(labels=genders, values=counts, hole=0.0, marker=dict(colors=['pink', 'blue']), showlegend=True)
+        go.Pie(labels=genders, values=counts, hole=0.0, marker=dict(colors=['red', 'blue']), showlegend=True)
     ])
 
     # Update layout
@@ -441,7 +441,7 @@ def info_preboarding(df):
     fig.write_image("plots/info_mobile_pre.png", width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/info_preboard.html", auto_open=True)
+    pio.write_html(fig, file="plots/info_mobile_pre.html", auto_open=True)
 
 
 def info_onboarding(df):
@@ -542,7 +542,8 @@ def correlation_matrix_1(df):
                     x=correlation_matrix.columns,
                     y=correlation_matrix.index,
                     color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1)
+                    zmin=-1, zmax=1,
+                    text_auto='.4f')
 
     # Update layout for better readability
     fig.update_layout(
@@ -593,7 +594,8 @@ def correlation_matrix_2(df):
                     labels=dict(x="Mobile Screen Options (After Boarding)",
                                 y="Mobile Screen Options (Before Boarding)", color="Correlation"),
                     color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1)
+                    zmin=-1, zmax=1,
+                    text_auto='.4f')
 
     # Update layout for better readability
     fig.update_layout(
@@ -645,7 +647,8 @@ def correlation_matrix_3(df):
                     labels=dict(x="Private Screen Options (After Boarding)",
                                 y="Mobile Screen Options (Before Boarding)", color="Correlation"),
                     color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1)
+                    zmin=-1, zmax=1,
+                    text_auto='.4f')
 
     # Update layout for better readability
     fig.update_layout(
@@ -697,7 +700,8 @@ def correlation_matrix_4(df):
                     labels=dict(x="Public Screen Options (After Boarding)",
                                 y="Mobile Screen Options (Before Boarding)", color="Correlation"),
                     color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1)
+                    zmin=-1, zmax=1,
+                    text_auto='.4f')
 
     # Update layout for better readability
     fig.update_layout(
@@ -749,7 +753,8 @@ def correlation_matrix_5(df):
                     labels=dict(x="Private Screen Options (After Boarding)",
                                 y="Public Screen Options (Before Boarding)", color="Correlation"),
                     color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1)
+                    zmin=-1, zmax=1,
+                    text_auto='.4f')
 
     # Update layout for better readability
     fig.update_layout(
@@ -801,7 +806,8 @@ def correlation_matrix_6(df):
                     labels=dict(x="Public Screen Options (After Boarding)",
                                 y="Public Screen Options (Before Boarding)", color="Correlation"),
                     color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1)
+                    zmin=-1, zmax=1,
+                    text_auto='.4f')
 
     # Update layout for better readability
     fig.update_layout(
@@ -853,7 +859,8 @@ def correlation_matrix_7(df):
                     labels=dict(x="Mobile Screen Options (After Boarding)",
                                 y="Public Screen Options (Before Boarding)", color="Correlation"),
                     color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1)
+                    zmin=-1, zmax=1,
+                    text_auto='.4f')
 
     # Update layout for better readability
     fig.update_layout(
