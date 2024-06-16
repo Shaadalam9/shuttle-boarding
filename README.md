@@ -59,31 +59,5 @@ This code was developed by [md_shadab_alam@outlook.com](mailto:md_shadab_alam@ou
 
 ### Correlation Matrices
 
-#### Correlation Matrix 1
-
-[![Correlation Matrix 1](plots/correlation_matrix_1.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/correlation_matrix_1.html)
-
-#### Correlation Matrix 2
-
-[![Correlation Matrix 2](plots/correlation_matrix_2.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/correlation_matrix_2.html)
-
-#### Correlation Matrix 3
-
-[![Correlation Matrix 3](plots/correlation_matrix_3.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/correlation_matrix_3.html)
-
-#### Correlation Matrix 4
-
-[![Correlation Matrix 4](plots/correlation_matrix_4.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/correlation_matrix_4.html)
-
-#### Correlation Matrix 5
-
-[![Correlation Matrix 5](plots/correlation_matrix_5.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/correlation_matrix_5.html)
-
-#### Correlation Matrix 6
-
-[![Correlation Matrix 6](plots/correlation_matrix_6.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/correlation_matrix_6.html)
-
-#### Correlation Matrix 7
-
-[![Correlation Matrix 7](plots/correlation_matrix_7.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/correlation_matrix_7.html)
+[![Correlation Matrix](plots/combined_correlation_matrix_lower_triangle.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/combined_correlation_matrix_lower_triangle_plotly.html)
 
