@@ -44,7 +44,7 @@ Data from the response is filtered based on the following criteria:
 7. [NFC Feature](#nfc-feature)
 8. [Information Required Preboarding](#information-required-preboarding)
 9. [Information Required Onboarding](#information-required-onboarding)
-10. [Correlation Matrices](#correlation-matrices)
+10. [Correlation Matrix](#correlation-matrices)
 
 ## Visualizations
 
@@ -76,7 +76,7 @@ Graph depicting how often participants use public bus services.
 ### Viewing Assistance
 Viewing assistance is a feature designed to help passengers navigate and position themselves accurately at shuttle bus stops. This tool assists users in determining the exact location where they should stand to board the shuttle bus, particularly in unfamiliar environments. By utilizing real-time guidance through mobile devices, viewing assistance can overcome navigation challenges and language barriers, ensuring a smooth and efficient boarding process.
 
-[![Viewing Assistance_Appearance](plots/HighresScreenshot00014.png)]
+![Viewing Assistance_Appearance](plots/HighresScreenshot00014.png)
 The above image shows users the location as a glow-in-the-environment where they need to stand in order to catch their bus.
 
 [![Viewing Assistance](plots/viewing_assistance.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/viewing_assistance.html)
