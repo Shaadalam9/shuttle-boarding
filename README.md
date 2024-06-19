@@ -2,8 +2,6 @@
 
 The research question driving this study was: What specific information do shuttle bus passengers need, and how do they prefer to access this information during their journey? This study seeks to establish the formats of information that are of the most value to passengers, both marketable but common information (e.g., route descriptions and shuttle bus schedules) and less marketable but rather uncommon information (e.g., departure countdowns and accessibility-friendly routes). We are studying user preferences for this type of information representation and whether these views are presented on mobile devices, private screens, or public displays. We also provide functionalities such as Near Field Communication (NFC) to board and viewing assistance to allow passengers to position themselves exactly where the bus is going to come, which is beneficial in unfamiliar environments. This will allow evaluation of the passenger's efficiency, convenience and satisfaction related to using these features, leading to a set of actionable insights to be considered in designing user-centric transportation interfaces. This research specifically applies to automated shuttles, given that the study is prompted by the special needs and inclinations related to automated shuttle use.
 
-This repository contains visualizations for the Shuttle Bus Survey. The visualizations include various demographic distributions, micro-mobility usage, and information preferences before and after boarding the shuttle bus.
-
 ## Usage of the code
 The code is open-source and free to use. It is aimed for, but not limited to, academic research. We welcome forking of this repository, pull requests, and any contributions in the spirit of open science and open-source code 😍😄 For inquiries about collaboration, you may contact Md Shadab Alam (md_shadab_alam@outlook.com) or Pavlo Bazilinskyy (pavlo.bazilinskyy@gmail.com).
 
@@ -28,14 +26,14 @@ pip install -r requirements.txt
 
 **Data preparation**
 
-Response data from the participnats is available at [Dropbox Link](https://www.dropbox.com/scl/fo/0ghcog8u0254ls1ce7zk0/AF1oNBPmHH7UEnjrLFAXskU?rlkey=8wbp8tv11d0xzfwl4x30frukd&st=zirrh4tc&dl=0).
+Response data from the participants is available at [Dropbox Link](https://www.dropbox.com/scl/fo/0ghcog8u0254ls1ce7zk0/AF1oNBPmHH7UEnjrLFAXskU?rlkey=8wbp8tv11d0xzfwl4x30frukd&st=zirrh4tc&dl=0).
 
 ### Filtering of response
-Data from response is filtered based on the following criteria:
+Data from the response is filtered based on the following criteria:
 1. People who did not read instructions.
 2. People who did not give consent.
 
-## List of figures
+## List of Figures
 
 1. [Gender Distribution](#gender-distribution)
 2. [Age Distribution](#age-distribution)
@@ -78,6 +76,14 @@ Graph depicting how often participants use public bus services.
 ### Viewing Assistance
 Viewing assistance is a feature designed to help passengers navigate and position themselves accurately at shuttle bus stops. This tool assists users in determining the exact location where they should stand to board the shuttle bus, particularly in unfamiliar environments. By utilizing real-time guidance through mobile devices, viewing assistance can overcome navigation challenges and language barriers, ensuring a smooth and efficient boarding process.
 
+<div align="center">
+  <a href="https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/viewing_assistance.png">
+    <img src="plots/HighresScreenshot00014.png" alt="Viewing assistance in shuttle bus station" width="49%">
+  </a>
+  <a href="https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/viewing_assistance_1.png">
+    <img src="plots/viewing_assistance_1.png" alt="Viewing assistance in shuttle bus station" width="49%">
+  </a>
+</div>
 
 
 [![Viewing Assistance](plots/viewing_assistance.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/viewing_assistance.html)
