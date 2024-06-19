@@ -5,6 +5,7 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.io as pio
 import plotly.express as px
+from plotly.subplots import make_subplots
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -430,19 +431,51 @@ def info_preboarding(df):
     fig = go.Figure()
 
     fig.add_trace(go.Bar(y=index, x=values_10, orientation='h', name='Mobile screen',
-                         marker_color='lightgreen', text=counts_values_10, textposition='outside'))
+                         marker_color='lightgreen'))
 
     fig.add_trace(go.Bar(y=index + bar_width, x=values_11, orientation='h', name='Public Screen',
-                         marker_color='skyblue', text=counts_values_11, textposition='outside'))
+                         marker_color='skyblue'))
 
     # Update layout
     fig.update_layout(
-        # title='Information Required Preboarding',
-        xaxis_title='Percentage of participants choosing each option',
-        yaxis=dict(tickmode='array', tickvals=index + bar_width / 2, ticktext=unique_options),
+        xaxis=dict(
+            title='Percentage of participants choosing each option',
+            title_font=dict(size=22),  # Increase x-axis title font size
+            tickfont=dict(size=24)  # Increase x-axis label font size
+        ),
+        yaxis=dict(
+            tickmode='array',
+            tickvals=index + bar_width / 2,
+            ticktext=unique_options,
+            tickfont=dict(size=20)  # Increase y-axis label font size
+        ),
         barmode='group',
-        legend_title_text='Screen type'
+        legend_title_text='Screen type',
+        legend=dict(x=0.84, y=0.04, font=dict(size=18))  # Increase legend font size
     )
+
+    # Add annotations for each bar to change the font size of the text
+    annotations = []
+    for i in range(len(values_10)):
+        annotations.append(dict(
+            x=values_10[i],
+            y=index[i],
+            text=str(counts_values_10[i]),
+            font=dict(size=22),
+            showarrow=False,
+            xanchor='left'
+        ))
+    for i in range(len(values_11)):
+        annotations.append(dict(
+            x=values_11[i],
+            y=index[i] + bar_width,
+            text=str(counts_values_11[i]),
+            font=dict(size=22),
+            showarrow=False,
+            xanchor='left'
+        ))
+
+    fig.update_layout(annotations=annotations)
 
     # Save the figure in different formats
     fig.write_image("plots/info_mobile_pre.eps")
@@ -492,22 +525,62 @@ def info_onboarding(df):
     fig = go.Figure()
 
     fig.add_trace(go.Bar(y=index, x=values_10, orientation='h', name='Public screen',
-                         marker_color='skyblue', text=counts_values_10, textposition='outside'))
+                         marker_color='skyblue'))
 
     fig.add_trace(go.Bar(y=index + bar_width, x=values_11, orientation='h', name='Private screen',
-                         marker_color='salmon', text=counts_values_11, textposition='outside'))
+                         marker_color='salmon'))
 
     fig.add_trace(go.Bar(y=index + 2 * bar_width, x=values_12, orientation='h', name='Mobile screen',
-                         marker_color='lightgreen', text=counts_values_12, textposition='outside'))
+                         marker_color='lightgreen'))
 
     # Update layout
     fig.update_layout(
-        # title='Information Required Onboarding',
-        xaxis_title='Percentage of participants choosing each option',
-        yaxis=dict(tickmode='array', tickvals=index + bar_width, ticktext=unique_options_capitalized),
+        xaxis=dict(
+            title='Percentage of participants choosing each option',
+            title_font=dict(size=22),  # Increase x-axis title font size
+            tickfont=dict(size=24)  # Increase x-axis label font size
+        ),
+        yaxis=dict(tickmode='array',
+                   tickvals=index + bar_width,
+                   ticktext=unique_options_capitalized,
+                   tickfont=dict(size=20)  # Increase y-axis label font size
+                   ),
         barmode='group',
-        legend_title_text='Screen type'
+        legend_title_text='Screen type',
+        legend=dict(x=0.84, y=0.04, font=dict(size=18))  # Increase legend font size
     )
+
+    # Add annotations for each bar to change the font size of the text
+    annotations = []
+    for i in range(len(values_10)):
+        annotations.append(dict(
+            x=values_10[i] + 1,  # Shift the text to the right of the bar
+            y=index[i],
+            text=str(counts_values_10[i]),
+            font=dict(size=22),
+            showarrow=False,
+            xanchor='left'
+        ))
+    for i in range(len(values_11)):
+        annotations.append(dict(
+            x=values_11[i] + 1,  # Shift the text to the right of the bar
+            y=index[i] + bar_width,
+            text=str(counts_values_11[i]),
+            font=dict(size=22),
+            showarrow=False,
+            xanchor='left'
+        ))
+    for i in range(len(values_12)):
+        annotations.append(dict(
+            x=values_12[i] + 1,  # Shift the text to the right of the bar
+            y=index[i] + (2 * bar_width),
+            text=str(counts_values_12[i]),
+            font=dict(size=22),
+            showarrow=False,
+            xanchor='left'
+        ))
+
+    fig.update_layout(annotations=annotations)
 
     # Save the figure in different formats
     fig.write_image("plots/info_onboard.eps")
@@ -515,381 +588,6 @@ def info_onboarding(df):
 
     # Save plot as HTML
     pio.write_html(fig, file="plots/info_onboard.html", auto_open=True)
-
-
-def correlation_matrix_1(df):
-    # Extract and process the relevant columns
-    column_10_data = df.select('Information required preboarding (mobile screen)').collect().to_series()
-    column_11_data = df.select('Information required preboarding (public screen)').collect().to_series()
-
-    # Process columns to get lists of options
-    options_10 = process_options(column_10_data)
-    options_11 = process_options(column_11_data)
-
-    # Create binary matrices for each column using MultiLabelBinarizer
-    mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10), columns=mlb.classes_, dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11), columns=mlb.classes_, dtype=int)
-
-    # Ensure both DataFrames have the same columns
-    all_columns = sorted(set(binary_matrix_10.columns).union(set(binary_matrix_11.columns)))
-    binary_matrix_10 = binary_matrix_10.reindex(columns=all_columns, fill_value=0)
-    binary_matrix_11 = binary_matrix_11.reindex(columns=all_columns, fill_value=0)
-
-    # Calculate the pairwise correlation between the two columns
-    correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
-    for col_10 in binary_matrix_10.columns:
-        for col_11 in binary_matrix_11.columns:
-            correlation_matrix.at[col_10, col_11] = binary_matrix_10[col_10].corr(binary_matrix_11[col_11])
-
-    correlation_matrix = correlation_matrix.astype(float)
-
-    # Create the correlation matrix heatmap
-    fig = px.imshow(correlation_matrix,
-                    labels=dict(x="Public screen options (before boarding)",
-                                y="Mobile screen options (before boarding)", color="Correlation"),
-                    x=correlation_matrix.columns,
-                    y=correlation_matrix.index,
-                    color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1,
-                    text_auto='.4f')
-
-    # Update layout for better readability
-    fig.update_layout(
-        # title='Correlation matrix between mobile and public screen options before boarding on shuttle bus',
-        autosize=False,
-        width=1500,
-        height=1000,
-        margin=dict(l=160, r=160, t=160, b=160),
-        xaxis=dict(tickangle=90)  # Ensure the x-axis labels are vertical
-    )
-    # Save the figure in different formats
-    fig.write_image("plots/correlation_matrix_1.eps")
-    fig.write_image("plots/correlation_matrix_1.png", width=1600, height=900, scale=3)
-
-    # Show the plot
-    fig.show()
-
-    # Save plot as HTML
-    fig.write_html("plots/correlation_matrix_1.html", auto_open=False)
-
-
-def correlation_matrix_2(df):
-    # Extract and process the relevant columns
-    column_10_data = df.select('Information required preboarding (mobile screen)').collect().to_series()
-    column_11_data = df.select('Information required onboarding (mobile screen)').collect().to_series()
-
-    # Process columns to get lists of options
-    options_10 = process_options(column_10_data)
-    options_11 = process_options(column_11_data)
-
-    # Create binary matrices for each column using MultiLabelBinarizer
-    mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10),
-                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11),
-                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
-
-    # Calculate the pairwise correlation between the two columns
-    correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
-    for col_10 in binary_matrix_10.columns:
-        for col_11 in binary_matrix_11.columns:
-            correlation_matrix.at[col_10, col_11] = binary_matrix_10[col_10].corr(binary_matrix_11[col_11])
-
-    correlation_matrix = correlation_matrix.astype(float)
-
-    # Create the correlation matrix heatmap
-    fig = px.imshow(correlation_matrix,
-                    labels=dict(x="Mobile screen options (after boarding)",
-                                y="Mobile screen options (before boarding)", color="Correlation"),
-                    color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1,
-                    text_auto='.4f')
-
-    # Update layout for better readability
-    fig.update_layout(
-        title='Correlation matrix between mobile screen options before and after boarding on shuttle bus',
-        autosize=False,
-        width=1500,
-        height=1000,
-        margin=dict(l=160, r=160, t=160, b=160),
-        xaxis=dict(tickangle=90)  # Ensure the x-axis labels are vertical
-    )
-
-    # Save the figure in different formats
-    fig.write_image("plots/correlation_matrix_2.eps")
-    fig.write_image("plots/correlation_matrix_2.png", width=1600, height=900, scale=3)
-
-    # Show the plot
-    fig.show()
-
-    # Save plot as HTML
-    fig.write_html("plots/correlation_matrix_2.html", auto_open=False)
-
-
-def correlation_matrix_3(df):
-    # Extract and process the relevant columns
-    column_10_data = df.select('Information required preboarding (mobile screen)').collect().to_series()
-    column_11_data = df.select('Information required onboarding (private screen)').collect().to_series()
-
-    # Process columns to get lists of options
-    options_10 = process_options(column_10_data)
-    options_11 = process_options(column_11_data)
-
-    # Create binary matrices for each column using MultiLabelBinarizer
-    mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10),
-                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11),
-                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
-
-    # Calculate the pairwise correlation between the two columns
-    correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
-    for col_10 in binary_matrix_10.columns:
-        for col_11 in binary_matrix_11.columns:
-            correlation_matrix.at[col_10, col_11] = binary_matrix_10[col_10].corr(binary_matrix_11[col_11])
-
-    correlation_matrix = correlation_matrix.astype(float)
-
-    # Create the correlation matrix heatmap
-    fig = px.imshow(correlation_matrix,
-                    labels=dict(x="Private screen options (after boarding)",
-                                y="Mobile screen ptions (before boarding)", color="Correlation"),
-                    color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1,
-                    text_auto='.4f')
-
-    # Update layout for better readability
-    fig.update_layout(
-        # title='Correlation matrix between mobile screen options before boarding on shuttle bus and private screen option after boarding on shuttle bus',  # noqa:E501
-        autosize=False,
-        width=1500,
-        height=1000,
-        margin=dict(l=160, r=160, t=160, b=160),
-        xaxis=dict(tickangle=90)  # Ensure the x-axis labels are vertical
-    )
-
-    # Save the figure in different formats
-    fig.write_image("plots/correlation_matrix_3.eps")
-    fig.write_image("plots/correlation_matrix_3.png", width=1600, height=900, scale=3)
-
-    # Show the plot
-    fig.show()
-
-    # Save plot as HTML
-    fig.write_html("plots/correlation_matrix_3.html", auto_open=False)
-
-
-def correlation_matrix_4(df):
-    # Extract and process the relevant columns
-    column_10_data = df.select('Information required preboarding (mobile screen)').collect().to_series()
-    column_11_data = df.select('Information required onboarding (public screen)').collect().to_series()
-
-    # Process columns to get lists of options
-    options_10 = process_options(column_10_data)
-    options_11 = process_options(column_11_data)
-
-    # Create binary matrices for each column using MultiLabelBinarizer
-    mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10),
-                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11),
-                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
-
-    # Calculate the pairwise correlation between the two columns
-    correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
-    for col_10 in binary_matrix_10.columns:
-        for col_11 in binary_matrix_11.columns:
-            correlation_matrix.at[col_10, col_11] = binary_matrix_10[col_10].corr(binary_matrix_11[col_11])
-
-    correlation_matrix = correlation_matrix.astype(float)
-
-    # Create the correlation matrix heatmap
-    fig = px.imshow(correlation_matrix,
-                    labels=dict(x="Public screen options (after boarding)",
-                                y="Mobile screen options (before boarding)", color="Correlation"),
-                    color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1,
-                    text_auto='.4f')
-
-    # Update layout for better readability
-    fig.update_layout(
-        # title='Correlation matrix between mobile screen Options before boarding on shuttle bus and public screen Option after boarding on shuttle bus',  # noqa:E501
-        autosize=False,
-        width=1500,
-        height=1000,
-        margin=dict(l=160, r=160, t=160, b=160),
-        xaxis=dict(tickangle=90)  # Ensure the x-axis labels are vertical
-    )
-
-    # Save the figure in different formats
-    fig.write_image("plots/correlation_matrix_4.eps")
-    fig.write_image("plots/correlation_matrix_4.png", width=1600, height=900, scale=3)
-
-    # Show the plot
-    fig.show()
-
-    # Save plot as HTML
-    fig.write_html("plots/correlation_matrix_4.html", auto_open=False)
-
-
-def correlation_matrix_5(df):
-    # Extract and process the relevant columns
-    column_10_data = df.select('Information required preboarding (public screen)').collect().to_series()
-    column_11_data = df.select('Information required onboarding (private screen)').collect().to_series()
-
-    # Process columns to get lists of options
-    options_10 = process_options(column_10_data)
-    options_11 = process_options(column_11_data)
-
-    # Create binary matrices for each column using MultiLabelBinarizer
-    mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10),
-                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11),
-                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
-
-    # Calculate the pairwise correlation between the two columns
-    correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
-    for col_10 in binary_matrix_10.columns:
-        for col_11 in binary_matrix_11.columns:
-            correlation_matrix.at[col_10, col_11] = binary_matrix_10[col_10].corr(binary_matrix_11[col_11])
-
-    correlation_matrix = correlation_matrix.astype(float)
-
-    # Create the correlation matrix heatmap
-    fig = px.imshow(correlation_matrix,
-                    labels=dict(x="Private screen options (after boarding)",
-                                y="Public screen options (before boarding)", color="Correlation"),
-                    color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1,
-                    text_auto='.4f')
-
-    # Update layout for better readability
-    fig.update_layout(
-        # title='Correlation matrix between public screen options before boarding on shuttle bus and private screen option after boarding on shuttle bus',  # noqa:E501
-        autosize=False,
-        width=1500,
-        height=1000,
-        margin=dict(l=160, r=160, t=160, b=160),
-        xaxis=dict(tickangle=90)  # Ensure the x-axis labels are vertical
-    )
-
-    # Save the figure in different formats
-    fig.write_image("plots/correlation_matrix_5.eps")
-    fig.write_image("plots/correlation_matrix_5.png", width=1600, height=900, scale=3)
-
-    # Show the plot
-    fig.show()
-
-    # Save plot as HTML
-    fig.write_html("plots/correlation_matrix_5.html", auto_open=False)
-
-
-def correlation_matrix_6(df):
-    # Extract and process the relevant columns
-    column_10_data = df.select('Information required preboarding (public screen)').collect().to_series()
-    column_11_data = df.select('Information required onboarding (public screen)').collect().to_series()
-
-    # Process columns to get lists of options
-    options_10 = process_options(column_10_data)
-    options_11 = process_options(column_11_data)
-
-    # Create binary matrices for each column using MultiLabelBinarizer
-    mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10),
-                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11),
-                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
-
-    # Calculate the pairwise correlation between the two columns
-    correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
-    for col_10 in binary_matrix_10.columns:
-        for col_11 in binary_matrix_11.columns:
-            correlation_matrix.at[col_10, col_11] = binary_matrix_10[col_10].corr(binary_matrix_11[col_11])
-
-    correlation_matrix = correlation_matrix.astype(float)
-
-    # Create the correlation matrix heatmap
-    fig = px.imshow(correlation_matrix,
-                    labels=dict(x="Public screen options (after boarding)",
-                                y="Public screen options (before boarding)", color="Correlation"),
-                    color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1,
-                    text_auto='.4f')
-
-    # Update layout for better readability
-    fig.update_layout(
-        # title='Correlation matrix between public screen options before and after boarding on shuttle bus',  # noqa:E501
-        autosize=False,
-        width=1500,
-        height=1000,
-        margin=dict(l=160, r=160, t=160, b=160),
-        xaxis=dict(tickangle=90)  # Ensure the x-axis labels are vertical
-    )
-
-    # Save the figure in different formats
-    fig.write_image("plots/correlation_matrix_6.eps")
-    fig.write_image("plots/correlation_matrix_6.png", width=1600, height=900, scale=3)
-
-    # Show the plot
-    fig.show()
-
-    # Save plot as HTML
-    fig.write_html("plots/correlation_matrix_6.html", auto_open=False)
-
-
-def correlation_matrix_7(df):
-    # Extract and process the relevant columns
-    column_10_data = df.select('Information required preboarding (public screen)').collect().to_series()
-    column_11_data = df.select('Information required onboarding (mobile screen)').collect().to_series()
-
-    # Process columns to get lists of options
-    options_10 = process_options(column_10_data)
-    options_11 = process_options(column_11_data)
-
-    # Create binary matrices for each column using MultiLabelBinarizer
-    mlb = MultiLabelBinarizer()
-    binary_matrix_10 = pd.DataFrame(mlb.fit_transform(options_10),
-                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
-    binary_matrix_11 = pd.DataFrame(mlb.fit_transform(options_11),
-                                    columns=[f"{col}" for col in mlb.classes_], dtype=int)
-
-    # Calculate the pairwise correlation between the two columns
-    correlation_matrix = pd.DataFrame(index=binary_matrix_10.columns, columns=binary_matrix_11.columns)
-    for col_10 in binary_matrix_10.columns:
-        for col_11 in binary_matrix_11.columns:
-            correlation_matrix.at[col_10, col_11] = binary_matrix_10[col_10].corr(binary_matrix_11[col_11])
-
-    correlation_matrix = correlation_matrix.astype(float)
-
-    # Create the correlation matrix heatmap
-    fig = px.imshow(correlation_matrix,
-                    labels=dict(x="Mobile screen options (after boarding)",
-                                y="Public screen options (before boarding)", color="Correlation"),
-                    color_continuous_scale='RdBu_r',
-                    zmin=-1, zmax=1,
-                    text_auto='.4f')
-
-    # Update layout for better readability
-    fig.update_layout(
-        # title='Correlation matrix between public screen options before boarding on shuttle bus and mobile screen option after boarding on shuttle bus',  # noqa:E501
-        autosize=False,
-        width=1500,
-        height=1000,
-        margin=dict(l=160, r=160, t=160, b=160),
-        xaxis=dict(tickangle=90)  # Ensure the x-axis labels are vertical
-    )
-
-    # Save the figure in different formats
-    fig.write_image("plots/correlation_matrix_7.eps")
-    fig.write_image("plots/correlation_matrix_7.png", width=1600, height=900, scale=3)
-
-    # Show the plot
-    fig.show()
-
-    # Save plot as HTML
-    fig.write_html("plots/correlation_matrix_7.html", auto_open=False)
 
 
 def create_combined_correlation_matrix(df):
@@ -1100,6 +798,185 @@ def create_combined_correlation_matrix_triangle_plotly(df):
     fig.write_html("plots/combined_correlation_matrix_lower_triangle_plotly.html", auto_open=False)
 
 
+def pre_and_on_mobile_and_pre_public(df):
+    preboarding_mobile_column = 'Information required preboarding (mobile screen)'
+    preboarding_public_column = 'Information required preboarding (public screen)'
+    onboarding_mobile_column = 'Information required onboarding (mobile screen)'
+
+    columns = [
+        preboarding_mobile_column,
+        preboarding_public_column,
+        onboarding_mobile_column
+    ]
+
+    # Mapping of long column names to shorter labels
+    col_mapping = {
+        'Information required preboarding (mobile screen)': 'Pre-Mob',
+        'Information required preboarding (public screen)': 'Pre-Pub',
+        'Information required onboarding (mobile screen)': 'On-Mob'
+    }
+
+    mlb = MultiLabelBinarizer()
+
+    # Process columns
+    binary_matrices = {}
+    for col in columns:
+        column_data = df.select(col).collect().to_series()
+        options = process_options(column_data)
+        binary_matrix = pd.DataFrame(mlb.fit_transform(options), columns=[f"{col}: {opt}" for opt in mlb.classes_],
+                                     dtype=int)
+        binary_matrices[col] = binary_matrix
+
+    # Get binary matrices for specific columns
+    binary_preboarding_mobile = binary_matrices[preboarding_mobile_column]
+    binary_preboarding_public = binary_matrices[preboarding_public_column]
+    binary_onboarding_mobile = binary_matrices[onboarding_mobile_column]
+
+    # Combine the necessary matrices
+    combined_matrix = pd.concat([binary_preboarding_mobile, binary_preboarding_public, binary_onboarding_mobile],
+                                axis=1)
+    combined_matrix = combined_matrix.loc[:, ~combined_matrix.columns.duplicated()]
+
+    # Calculate pairwise correlation
+    correlation_matrix = combined_matrix.corr()
+
+    # Shorten the labels for better readability
+    y_labels = [shorten_label(label, col_mapping) for label in binary_preboarding_mobile.columns]
+    x_labels = [shorten_label(label, col_mapping) for label in list(binary_preboarding_public.columns)
+                + list(binary_onboarding_mobile.columns)]
+
+    # Make sure to rename the correlation matrix columns and index for proper indexing
+    correlation_matrix.columns = [shorten_label(label, col_mapping) for label in correlation_matrix.columns]
+    correlation_matrix.index = [shorten_label(label, col_mapping) for label in correlation_matrix.index]
+
+    heatmap_data = correlation_matrix.loc[y_labels, x_labels]
+
+    # Create the heatmap using Plotly
+    fig = go.Figure(data=go.Heatmap(
+        z=heatmap_data.values,
+        x=heatmap_data.columns,
+        y=heatmap_data.index,
+        colorscale='RdBu_r',
+        zmin=-1, zmax=1,
+        text=heatmap_data.values,
+        hovertemplate='%{y} - %{x}: %{z:.2f}<extra></extra>',
+        showscale=True
+    ))
+
+    fig.update_layout(
+        xaxis=dict(
+            tickangle=45,
+            tickfont=dict(size=14),  # Increase x-axis tick label font size
+        ),
+        yaxis=dict(
+            tickfont=dict(size=14),  # Increase y-axis tick label font size
+        ),
+        autosize=False,
+        width=1500,
+        height=1000,
+        margin=dict(l=160, r=160, t=160, b=160),
+    )
+
+    # Add text annotations
+    for i in range(len(heatmap_data.index)):
+        for j in range(len(heatmap_data.columns)):
+            fig.add_annotation(
+                x=heatmap_data.columns[j],
+                y=heatmap_data.index[i],
+                text=f"{heatmap_data.values[i, j]:.2f}",
+                showarrow=False,
+                font=dict(size=10)  # Increase text size in the cell
+            )
+
+    # Save the figure as an HTML file
+    fig.write_html("plots/pre_and_on_mobile_and_pre_public.html")
+
+    # Save the figure in different formats
+    fig.write_image("plots/pre_and_on_mobile_and_pre_public.png", width=1600, height=900, scale=3)
+    fig.write_image("plots/pre_and_on_mobile_and_pre_public.eps")
+
+    # Show the plot
+    fig.show()
+
+
+def new_merged_pie_plot(df):
+    # Create a 1x4 subplot figure with domain type for pie charts
+    fig = make_subplots(rows=1, cols=4,
+                        specs=[[{'type': 'domain'}, {'type': 'domain'}, {'type': 'domain'}, {'type': 'domain'}]])
+
+    # Micro-mobility usage
+    frequency_counts = df.group_by("Micro-mobillity frequency").agg(pl.count(
+        'Micro-mobillity frequency').alias('count')).collect()
+    frequency = frequency_counts['Micro-mobillity frequency'].to_list()
+    counts = frequency_counts['count'].to_list()
+    desired_order = ["Everyday", "4 to 6 days a week", "1 to 3 days a week",
+                     "Once a month to once a week", "Less than once a month", "Never"]
+    ordered_indices = [frequency.index(item) for item in desired_order if item in frequency]
+    ordered_frequency = [frequency[i] for i in ordered_indices]
+    ordered_counts = [counts[i] for i in ordered_indices]
+    fig.add_trace(go.Pie(labels=ordered_frequency, values=ordered_counts, hole=0.0, pull=[0] * len(ordered_frequency),
+                         sort=False, textinfo='label+percent', textfont=dict(size=10)), row=1, col=1)
+
+    # Bus usage
+    frequency_counts = df.group_by("Bus frequency").agg(pl.count('Bus frequency').alias('count')).collect()
+    frequency = frequency_counts['Bus frequency'].to_list()
+    counts = frequency_counts['count'].to_list()
+    desired_order = ["0 times", "1–2 times", "3–4 times", "5–6 times", "7 or more times"]
+    ordered_indices = [frequency.index(item) for item in desired_order if item in frequency]
+    ordered_frequency = [frequency[i] for i in ordered_indices]
+    ordered_counts = [counts[i] for i in ordered_indices]
+    # Append "in a week" to each label
+    ordered_frequency = [label + " in a week" for label in ordered_frequency]
+    fig.add_trace(go.Pie(labels=ordered_frequency, values=ordered_counts, hole=0.0, pull=[0] * len(ordered_frequency),
+                         sort=False, textinfo='label+percent', textfont=dict(size=10)), row=1, col=2)
+
+    # Viewing assistance necessity
+    frequency_counts = df.group_by("Assistance feature valuable?").agg(pl.count(
+        'Assistance feature valuable?').alias('count')).collect()
+    frequency = frequency_counts['Assistance feature valuable?'].to_list()
+    counts = frequency_counts['count'].to_list()
+    desired_order = ["Strongly disagree", "Disagree", "Neither disagree nor agree", "Agree", "Strongly agree"]
+    ordered_indices = [frequency.index(item) for item in desired_order if item in frequency]
+    ordered_frequency = [frequency[i] for i in ordered_indices]
+    ordered_counts = [counts[i] for i in ordered_indices]
+    fig.add_trace(go.Pie(labels=ordered_frequency, values=ordered_counts, hole=0.0, pull=[0] * len(ordered_frequency),
+                         sort=False, textinfo='label+percent', textfont=dict(size=10)), row=1, col=3)
+
+    # NFC necessity
+    frequency_counts = df.group_by("NFC feature valuable").agg(pl.count(
+        'NFC feature valuable').alias('count')).collect()
+    frequency = frequency_counts['NFC feature valuable'].to_list()
+    counts = frequency_counts['count'].to_list()
+    desired_order = ["Strongly disagree", "Disagree", "Neither disagree nor agree", "Agree", "Strongly agree"]
+    ordered_indices = [frequency.index(item) for item in desired_order if item in frequency]
+    ordered_frequency = [frequency[i] for i in ordered_indices]
+    ordered_counts = [counts[i] for i in ordered_indices]
+    fig.add_trace(go.Pie(labels=ordered_frequency, values=ordered_counts, hole=0.0, pull=[0] * len(ordered_frequency),
+                         sort=False, textinfo='label+percent', textfont=dict(size=10)), row=1, col=4)
+
+    # Update layout for the entire figure and add annotations for centered subplot titles
+    fig.update_layout(
+        showlegend=False,  # Hide the legend for all subplots
+        annotations=[
+            dict(text="Micro-Mobility Usage", x=0.065, y=0.5, xref='paper',
+                 yref='paper', showarrow=False, font=dict(size=12)),
+            dict(text="Bus Usage", x=0.375, y=0.5, xref='paper',
+                 yref='paper', showarrow=False, font=dict(size=12)),
+            dict(text="Viewing Assistance", x=0.625, y=0.5, xref='paper',
+                 yref='paper', showarrow=False, font=dict(size=12)),
+            dict(text="NFC Necessity", x=0.92, y=0.5, xref='paper',
+                 yref='paper', showarrow=False, font=dict(size=12))
+        ]
+    )
+
+    # Save the figure in different formats
+    fig.write_image("plots/merged_pie_plots.eps")
+    fig.write_image("plots/merged_pie_plots.png", width=1600, height=400, scale=3)
+
+    # Save plot as HTML
+    pio.write_html(fig, file="plots/merged_pie_plots.html", auto_open=True)
+
+
 # Execute analysis
 if __name__ == "__main__":
 
@@ -1134,15 +1011,10 @@ if __name__ == "__main__":
     NFC(dataframe)
     info_preboarding(dataframe)
     info_onboarding(dataframe)
-    correlation_matrix_1(dataframe)
-    correlation_matrix_2(dataframe)
-    correlation_matrix_3(dataframe)
-    correlation_matrix_4(dataframe)
-    correlation_matrix_5(dataframe)
-    correlation_matrix_6(dataframe)
-    correlation_matrix_7(dataframe)
     create_combined_correlation_matrix(dataframe)
     create_combined_correlation_matrix_triangle(dataframe)
     create_combined_correlation_matrix_triangle_plotly(dataframe)
+    pre_and_on_mobile_and_pre_public(dataframe)
+    new_merged_pie_plot(dataframe)
 
     print("Execution Completed")
