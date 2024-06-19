@@ -6,7 +6,7 @@ The research question driving this study was: What specific information do shutt
 The code is open-source and free to use. It is aimed for, but not limited to, academic research. We welcome forking of this repository, pull requests, and any contributions in the spirit of open science and open-source code 😍😄 For inquiries about collaboration, you may contact Md Shadab Alam (md_shadab_alam@outlook.com) or Pavlo Bazilinskyy (pavlo.bazilinskyy@gmail.com).
 
 ## Getting Started
-Tested with Python 3.9.1. To setup the environment run these two commands in a parent folder of the downloaded repository (replace `/` with `\` and possibly add `--user` if on Windows:
+Tested with Python 3.9.19. To setup the environment run these two commands in a parent folder of the downloaded repository (replace `/` with `\` and possibly add `--user` if on Windows:
 
 **Step 1:**  
 
@@ -76,15 +76,8 @@ Graph depicting how often participants use public bus services.
 ### Viewing Assistance
 Viewing assistance is a feature designed to help passengers navigate and position themselves accurately at shuttle bus stops. This tool assists users in determining the exact location where they should stand to board the shuttle bus, particularly in unfamiliar environments. By utilizing real-time guidance through mobile devices, viewing assistance can overcome navigation challenges and language barriers, ensuring a smooth and efficient boarding process.
 
-<div align="center">
-  <a href="https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/viewing_assistance.png">
-    <img src="plots/HighresScreenshot00014.png" alt="Viewing assistance in shuttle bus station" width="49%">
-  </a>
-  <a href="https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/viewing_assistance_1.png">
-    <img src="plots/viewing_assistance_1.png" alt="Viewing assistance in shuttle bus station" width="49%">
-  </a>
-</div>
-
+[![Viewing Assistance_Appearance](plots/HighresScreenshot00014.png)]
+The above image shows users the location as a glow-in-the-environment where they need to stand in order to catch their bus.
 
 [![Viewing Assistance](plots/viewing_assistance.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/viewing_assistance.html)
 Graph displaying participants' opinions on the necessity of viewing assistance for navigating new places or overcoming language barriers.
