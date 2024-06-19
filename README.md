@@ -76,6 +76,9 @@ Graph showing how frequently participants use micro-mobility options such as e-s
 Graph depicting how often participants use public bus services.
 
 ### Viewing Assistance
+Viewing assistance is a feature designed to help passengers navigate and position themselves accurately at shuttle bus stops. This tool assists users in determining the exact location where they should stand to board the shuttle bus, particularly in unfamiliar environments. By utilizing real-time guidance through mobile devices, viewing assistance can overcome navigation challenges and language barriers, ensuring a smooth and efficient boarding process.
+
+
 
 [![Viewing Assistance](plots/viewing_assistance.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/viewing_assistance.html)
 Graph displaying participants' opinions on the necessity of viewing assistance for navigating new places or overcoming language barriers.
