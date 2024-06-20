@@ -44,7 +44,7 @@ Data from the response is filtered based on the following criteria:
 7. [NFC Feature](#nfc-feature)
 8. [Information Required Preboarding](#information-required-preboarding)
 9. [Information Required Onboarding](#information-required-onboarding)
-10. [Correlation Matrix](#correlation-matrices)
+10. [Correlation Matrices](#correlation-matrices)
 
 ## Visualizations
 
@@ -98,6 +98,9 @@ Graph showing the types of information participants prefer to receive on mobile 
 Graph depicting the types of information participants prefer to receive on mobile, private, or public screens while onboard the shuttle bus.
 
 ### Correlation Matrices
+
+[![Correlation Matrix](plots/pre_and_on_mobile_and_pre_public.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/pre_and_on_mobile_and_pre_public.html)
+Correlation matrix between information on mobile screen pre-boarding vs information on public screen pre-boarding and information on mobile screen during the journey.
 
 [![Correlation Matrix](plots/combined_correlation_matrix_lower_triangle.png)](https://htmlpreview.github.io/?https://github.com/Shaadalam9/shuttle-boarding/blob/main/plots/combined_correlation_matrix_lower_triangle_plotly.html)
 Correlation matrix showing the relationships between different information preferences and display methods.
