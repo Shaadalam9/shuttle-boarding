@@ -78,11 +78,11 @@ def gender_distribution_bar(df):
     )
 
     # Save the figure in different formats
-    fig.write_image("plots/gender_bar.eps")
-    fig.write_image("plots/gender_bar.png", width=1600, height=900, scale=3)
+    fig.write_image(os.path.join(common.get_configs('plots'), 'gender_bar.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'gender_bar.png'), width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/gender.html", auto_open=True)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'gender_bar.html'), auto_open=True)
 
 
 def gender_distribution_pie(df):
@@ -105,11 +105,11 @@ def gender_distribution_pie(df):
     )
 
     # Save the figure in different formats
-    fig.write_image("plots/gender_pie.eps")
-    fig.write_image("plots/gender_pie.png", width=1600, height=900, scale=3)
+    fig.write_image(os.path.join(common.get_configs('plots'), 'gender_pie.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'gender_pie.png'), width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/gender_pie.html", auto_open=True)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'gender_pie.html'), auto_open=True)
 
 
 def age_distribution(df):
@@ -134,11 +134,11 @@ def age_distribution(df):
     )
 
     # Save the figure in different formats
-    fig.write_image("plots/age.eps")
-    fig.write_image("plots/age.png", width=1600, height=900, scale=3)
+    fig.write_image(os.path.join(common.get_configs('plots'), 'age.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'age.png'), width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/age.html", auto_open=True)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'age.html'), auto_open=True)
 
 
 def demographic_distribution_bar(df):
@@ -170,11 +170,11 @@ def demographic_distribution_bar(df):
     )
 
     # Save the figure in different formats
-    fig.write_image("plots/country_bar.eps")
-    fig.write_image("plots/country_bar.png", width=1600, height=900, scale=3)
+    fig.write_image(os.path.join(common.get_configs('plots'), 'country_bar.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'country_bar.png'), width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/country_bar.html", auto_open=True)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'country_bar.html'), auto_open=True)
 
 
 def demographic_distribution_pie(df):
@@ -196,11 +196,11 @@ def demographic_distribution_pie(df):
     )
 
     # Save the figure in different formats
-    fig.write_image("plots/country_pie.eps")
-    fig.write_image("plots/country_pie.png", width=1600, height=900, scale=3)
+    fig.write_image(os.path.join(common.get_configs('plots'), 'country_pie.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'country_pie.png'), width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/country_pie.html", auto_open=True)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'country_pie.html'), auto_open=True)
 
 
 def use_micro_mobility(df):
@@ -238,11 +238,11 @@ def use_micro_mobility(df):
     )
 
     # Save the figure in different formats
-    fig.write_image("plots/micro-mobility.eps")
-    fig.write_image("plots/micro-mobility.png", width=1600, height=900, scale=3)
+    fig.write_image(os.path.join(common.get_configs('plots'), 'micro-mobility.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'micro-mobility.png'), width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/micro-mobility.html", auto_open=True)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'micro-mobility.html'), auto_open=True)
 
 
 def use_bus(df):
@@ -279,11 +279,11 @@ def use_bus(df):
     )
 
     # Save the figure in different formats
-    fig.write_image("plots/bus_use.eps")
-    fig.write_image("plots/bus_use.png", width=1600, height=900, scale=3)
+    fig.write_image(os.path.join(common.get_configs('plots'), 'bus_use.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'bus_use.png'), width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/bus_use.html", auto_open=True)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'bus_use.html'), auto_open=True)
 
 
 def viewing_assistance(df):
@@ -342,11 +342,12 @@ def viewing_assistance(df):
     ])
 
     # Save the figure in different formats
-    fig.write_image("plots/viewing_assistance.eps")
-    fig.write_image("plots/viewing_assistance.png", width=1600, height=900, scale=3)
+    fig.write_image(os.path.join(common.get_configs('plots'), 'viewing_assistance.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'viewing_assistance.png'),
+                    width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/viewing_assistance.html", auto_open=True)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'viewing_assistance.html'), auto_open=True)
 
 
 def NFC(df):
@@ -405,11 +406,12 @@ def NFC(df):
     ])
 
     # Save the figure in different formats
-    fig.write_image("plots/NFC.eps")
-    fig.write_image("plots/NFC.png", width=1600, height=900, scale=3)
+    fig.write_image(os.path.join(common.get_configs('plots'), 'NFC.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'NFC.png'),
+                    width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/NFC.html", auto_open=True)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'NFC.html'), auto_open=True)
 
 
 def info_preboarding(df):
@@ -488,11 +490,12 @@ def info_preboarding(df):
     fig.update_layout(annotations=annotations)
 
     # Save the figure in different formats
-    fig.write_image("plots/info_mobile_pre.eps")
-    fig.write_image("plots/info_mobile_pre.png", width=1600, height=900, scale=3)
+    fig.write_image(os.path.join(common.get_configs('plots'), 'info_mobile_pre.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'info_mobile_pre.png'),
+                    width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/info_mobile_pre.html", auto_open=True)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'info_mobile_pre.html'), auto_open=True)
 
 
 def info_onboarding(df):
@@ -593,11 +596,12 @@ def info_onboarding(df):
     fig.update_layout(annotations=annotations)
 
     # Save the figure in different formats
-    fig.write_image("plots/info_onboard.eps")
-    fig.write_image("plots/info_onboard.png", width=1600, height=900, scale=3)  # Add width, height, and scale
+    fig.write_image(os.path.join(common.get_configs('plots'), 'info_onboard.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'info_onboard.png'),
+                    width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/info_onboard.html", auto_open=True)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'info_onboard.html'), auto_open=True)
 
 
 def create_combined_correlation_matrix(df):
@@ -660,14 +664,13 @@ def create_combined_correlation_matrix(df):
         yaxis=dict(tickfont=dict(size=8))  # Reduce the font size of y-axis labels
     )
     # Save the figure in different formats
-    fig.write_image("plots/combined_correlation_matrix.eps")
-    fig.write_image("plots/combined_correlation_matrix.png", width=1600, height=900, scale=3)
-
-    # Show the plot
-    fig.show()
+    fig.write_image(os.path.join(common.get_configs('plots'), 'combined_correlation_matrix.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'combined_correlation_matrix.png'),
+                    width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    fig.write_html("plots/combined_correlation_matrix.html", auto_open=False)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'combined_correlation_matrix.html'),
+                   auto_open=True)
 
 
 def create_combined_correlation_matrix_triangle(df):
@@ -726,9 +729,8 @@ def create_combined_correlation_matrix_triangle(df):
     plt.tight_layout()
 
     # Save the figure
-    plt.savefig("plots/combined_correlation_matrix_lower_triangle.png", dpi=300)
-    plt.savefig("plots/combined_correlation_matrix_lower_triangle.eps")
-
+    plt.savefig(os.path.join(common.get_configs('plots'), 'combined_correlation_matrix_lower_triangle.png'), dpi=300)
+    plt.savefig(os.path.join(common.get_configs('plots'), 'combined_correlation_matrix_lower_triangle.eps'))
     plt.show()
 
 
@@ -798,14 +800,13 @@ def create_combined_correlation_matrix_triangle_plotly(df):
         yaxis=dict(tickfont=dict(size=8))  # Reduce the font size of y-axis labels
     )
     # Save the figure in different formats
-    fig.write_image("plots/combined_correlation_matrix_lower_triangle_plotly.eps")
-    fig.write_image("plots/combined_correlation_matrix_lower_triangle_plotly.png", width=1600, height=900, scale=3)
-
-    # Show the plot
-    fig.show()
+    fig.write_image(os.path.join(common.get_configs('plots'), 'combined_correlation_matrix_lower_triangle_plotly.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'combined_correlation_matrix_lower_triangle_plotly.png'),
+                    width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    fig.write_html("plots/combined_correlation_matrix_lower_triangle_plotly.html", auto_open=False)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'),
+                                          'combined_correlation_matrix_lower_triangle_plotly.html'), auto_open=True)
 
 
 def pre_and_on_mobile_and_pre_public(df):
@@ -899,14 +900,12 @@ def pre_and_on_mobile_and_pre_public(df):
             )
 
     # Save the figure as an HTML file
-    fig.write_html("plots/pre_and_on_mobile_and_pre_public.html")
+    fig.write_image(os.path.join(common.get_configs('plots'), 'pre_and_on_mobile_and_pre_public.eps'))
+    fig.write_image(os.path.join(common.get_configs('plots'), 'pre_and_on_mobile_and_pre_public.png'),
+                    width=1600, height=900, scale=3)
 
-    # Save the figure in different formats
-    fig.write_image("plots/pre_and_on_mobile_and_pre_public.png", width=1600, height=900, scale=3)
-    fig.write_image("plots/pre_and_on_mobile_and_pre_public.eps")
-
-    # Show the plot
-    fig.show()
+    # Save plot as HTML
+    fig.write_html(os.path.join(common.get_configs('plots'), 'pre_and_on_mobile_and_pre_public.html'))
 
 
 def new_merged_pie_plot(df):
@@ -984,7 +983,8 @@ def new_merged_pie_plot(df):
     fig.write_image("plots/merged_pie_plots.png", width=1600, height=400, scale=3)
 
     # Save plot as HTML
-    pio.write_html(fig, file="plots/merged_pie_plots.html", auto_open=True)
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'), 'pre_and_on_mobile_and_pre_public.html'),
+                   auto_open=True)
 
 
 # Execute analysis
@@ -995,7 +995,6 @@ if __name__ == "__main__":
     os.makedirs(output_folder, exist_ok=True)
 
     logger.info("Analysis started.")
-    common.get_configs('data')
 
     # Read the CSV file into a Polars LazyFrame
     dataframe = pl.scan_csv(common.get_configs('data'))
