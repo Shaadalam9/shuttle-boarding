@@ -2,6 +2,7 @@
 
 import polars as pl
 import numpy as np
+import os
 import plotly.graph_objects as go
 import plotly.io as pio
 import plotly.express as px
@@ -10,6 +11,15 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MultiLabelBinarizer
+import common
+from custom_logger import CustomLogger
+from logmod import logs
+
+logs(show_level='info', show_color=True)
+logger = CustomLogger(__name__)  # use custom logger
+
+# set template for plotly output
+template = common.get_configs('plotly_template')
 
 
 # Function to process a column and calculate percentages and counts
@@ -433,7 +443,7 @@ def info_preboarding(df):
     fig.add_trace(go.Bar(y=index, x=values_10, orientation='h', name='Mobile screen',
                          marker_color='lightgreen'))
 
-    fig.add_trace(go.Bar(y=index + bar_width, x=values_11, orientation='h', name='Public Screen',
+    fig.add_trace(go.Bar(y=index + bar_width, x=values_11, orientation='h', name='Public screen',
                          marker_color='skyblue'))
 
     # Update layout
@@ -980,9 +990,16 @@ def new_merged_pie_plot(df):
 # Execute analysis
 if __name__ == "__main__":
 
-    csv_file_path = 'response.csv'
+    # Create directory if it doesn't exist
+    output_folder = "plots"
+    os.makedirs(output_folder, exist_ok=True)
+
+    logger.info("Analysis started.")
+    common.get_configs('data')
+    # csv_file_path = '../response.csv'
+
     # Read the CSV file into a Polars LazyFrame
-    dataframe = pl.scan_csv(csv_file_path)
+    dataframe = pl.scan_csv(common.get_configs('data'))
 
     # Filter out the responses who haven't read the instruction or doesn't gave the consent
     dataframe = dataframe.filter((pl.col("Have you read and understood the above instructions?") == "Yes")
@@ -1017,4 +1034,4 @@ if __name__ == "__main__":
     pre_and_on_mobile_and_pre_public(dataframe)
     new_merged_pie_plot(dataframe)
 
-    print("Execution Completed")
+    logger.info("Analysis completed.")
