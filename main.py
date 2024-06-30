@@ -996,7 +996,6 @@ if __name__ == "__main__":
 
     logger.info("Analysis started.")
     common.get_configs('data')
-    # csv_file_path = '../response.csv'
 
     # Read the CSV file into a Polars LazyFrame
     dataframe = pl.scan_csv(common.get_configs('data'))
