@@ -1,6 +1,6 @@
 response.csv
 check.py
 .DS_Store
-__pycache__
+*/__pycache__
 plots
 config
