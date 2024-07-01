@@ -33,6 +33,12 @@ Data from the response is filtered based on the following criteria:
 1. People who did not read instructions.
 2. People who did not give consent.
 
+### Configuration of project
+Configuration of the project needs to be defined in `shuttle-boarding/config`. Please use the `default.config` file for the required structure of the file. If no custom config file is provided, `default.config` is used. The config file has the following parameters:
+* `data`: location of the response file.
+* `plots`: location for the saving the figures.
+* `plotly_template`: template used to make graphs in the analysis.
+
 ## List of Figures
 
 1. [Gender Distribution](#gender-distribution)
