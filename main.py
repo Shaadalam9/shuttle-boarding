@@ -1,5 +1,3 @@
-# Code by md_shadab_alam@outlook.com
-
 import polars as pl
 import numpy as np
 import os

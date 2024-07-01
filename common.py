@@ -1,5 +1,4 @@
 """Contains various function used throughout this project."""
-# by Pavlo Bazilinskyy <pavlo.bazilinskyy@gmail.com>
 import os
 import json
 import pickle

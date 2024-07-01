@@ -3,3 +3,4 @@ check.py
 .DS_Store
 __pycache__
 plots
+config
