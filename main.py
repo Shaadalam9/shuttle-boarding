@@ -888,7 +888,8 @@ def pre_and_on_mobile_and_pre_public(df):
                     width=1600, height=900, scale=3)
 
     # Save plot as HTML
-    fig.write_html(os.path.join(common.get_configs('plots'), 'pre_and_on_mobile_and_pre_public.html', auto_open=True))
+    pio.write_html(fig, file=os.path.join(common.get_configs('plots'),
+                                          'pre_and_on_mobile_and_pre_public.html'), auto_open=True)
 
 
 def new_merged_pie_plot(df):
