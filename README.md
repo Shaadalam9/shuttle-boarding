@@ -17,7 +17,26 @@ git clone https://github.com/Shaadalam9/shuttle-boarding.git
 
 **Step 2:** 
 
-Install Dependencies
+Create a new virtual environment
+```command line
+python -m venv venv
+```
+
+**Step 3:** 
+
+Activate the virtual environment
+```command line
+source venv/bin/activate
+```
+
+On Windows use
+```command line
+venv\Scripts\activate
+```
+
+**Step 4:** 
+
+Install dependencies
 ```command line
 pip install -r requirements.txt
 ```
