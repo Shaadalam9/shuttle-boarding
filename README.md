@@ -4,13 +4,13 @@ The research question driving this study was: What specific information do shutt
 
 
 ## Citation
-If you use the coupled sim for academic work please cite the following paper:
+If you use the code or data for academic work please cite the following paper:
 
 > Alam, M. S., Subramanian, T., Martens, M., Remlinger, W., & Bazilinskyy, P. (2024). From A to B with Ease: User-Centric Interfaces for Shuttle Buses. Adjunct Proceedings of the 16th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (AutoUI). Stanford, CA, USA.
 
 
 ## Usage of the code
-The code is open-source and free to use. It is aimed for, but not limited to, academic research. We welcome forking of this repository, pull requests, and any contributions in the spirit of open science and open-source code 😍😄 For inquiries about collaboration, you may contact Md Shadab Alam (md_shadab_alam@outlook.com) or Pavlo Bazilinskyy (pavlo.bazilinskyy@gmail.com).
+The code is open-source and free to use. It is aimed for, but not limited to, academic research. We welcome forking of this repository, pull requests, and any contributions in the spirit of open science and open-source code 😍😄 For inquiries about collaboration, you may contact Md Shadab Alam (md_shadab_alam@outlook.com) or Pavlo Bazilinskyy (pavlo.bazilinskyy@gmail.com). The responses of the participants can be downloaded from - [4TU Research Data](http://doi.org/10.1016/j.apergo.2022.103825).
 
 ## Getting Started
 Tested with Python 3.9.19. To setup the environment run these two commands in a parent folder of the downloaded repository (replace `/` with `\` and possibly add `--user` if on Windows:
