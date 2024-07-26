@@ -10,7 +10,7 @@ If you use the code or data for academic work please cite the following paper:
 
 
 ## Usage of the code
-The code is open-source and free to use. It is aimed for, but not limited to, academic research. We welcome forking of this repository, pull requests, and any contributions in the spirit of open science and open-source code 😍😄 For inquiries about collaboration, you may contact Md Shadab Alam (md_shadab_alam@outlook.com) or Pavlo Bazilinskyy (pavlo.bazilinskyy@gmail.com). The responses of the participants can be downloaded from - [4TU Research Data](http://doi.org/10.1016/j.apergo.2022.103825).
+The code is open-source and free to use. It is aimed for, but not limited to, academic research. We welcome forking of this repository, pull requests, and any contributions in the spirit of open science and open-source code 😍😄 For inquiries about collaboration, you may contact Md Shadab Alam (md_shadab_alam@outlook.com) or Pavlo Bazilinskyy (pavlo.bazilinskyy@gmail.com).
 
 ## Getting Started
 Tested with Python 3.9.19. To setup the environment run these two commands in a parent folder of the downloaded repository (replace `/` with `\` and possibly add `--user` if on Windows:
@@ -52,7 +52,7 @@ pip install -r requirements.txt
 
 **Data preparation**
 
-Response data from the participants is available at [Dropbox Link](https://www.dropbox.com/scl/fo/0ghcog8u0254ls1ce7zk0/AF1oNBPmHH7UEnjrLFAXskU?rlkey=8wbp8tv11d0xzfwl4x30frukd&st=zirrh4tc&dl=0).
+Response data from the participants is available at [4TU Research Data](http://doi.org/10.1016/j.apergo.2022.103825).
 
 ### Filtering of response
 Data from the response is filtered based on the following criteria:
