@@ -2,6 +2,13 @@
 
 The research question driving this study was: What specific information do shuttle bus passengers need, and how do they prefer to access this information during their journey? This study seeks to establish the formats of information that are of the most value to passengers, both marketable but common information (e.g., route descriptions and shuttle bus schedules) and less marketable but rather uncommon information (e.g., departure countdowns and accessibility-friendly routes). We are studying user preferences for this type of information representation and whether these views are presented on mobile devices, private screens, or public displays. We also provide functionalities such as Near Field Communication (NFC) to board and viewing assistance to allow passengers to position themselves exactly where the bus is going to come, which is beneficial in unfamiliar environments. This will allow evaluation of the passenger's efficiency, convenience and satisfaction related to using these features, leading to a set of actionable insights to be considered in designing user-centric transportation interfaces. This research specifically applies to automated shuttles, given that the study is prompted by the special needs and inclinations related to automated shuttle use.
 
+
+## Citation
+If you use the coupled sim for academic work please cite the following paper:
+
+> Alam, M. S., Subramanian, T., Martens, M., Remlinger, W., & Bazilinskyy, P. (2024). From A to B with Ease: User-Centric Interfaces for Shuttle Buses. Adjunct Proceedings of the 16th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (AutoUI). Stanford, CA, USA.
+
+
 ## Usage of the code
 The code is open-source and free to use. It is aimed for, but not limited to, academic research. We welcome forking of this repository, pull requests, and any contributions in the spirit of open science and open-source code 😍😄 For inquiries about collaboration, you may contact Md Shadab Alam (md_shadab_alam@outlook.com) or Pavlo Bazilinskyy (pavlo.bazilinskyy@gmail.com).
 
