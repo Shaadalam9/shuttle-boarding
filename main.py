@@ -441,18 +441,18 @@ def info_preboarding(df):
     fig.update_layout(
         xaxis=dict(
             title='Percentage of participants choosing each option',
-            title_font=dict(size=22),  # Increase x-axis title font size
+            title_font=dict(size=24),  # Increase x-axis title font size
             tickfont=dict(size=24)  # Increase x-axis label font size
         ),
         yaxis=dict(
             tickmode='array',
             tickvals=index + bar_width / 2,
             ticktext=unique_options,
-            tickfont=dict(size=20)  # Increase y-axis label font size
+            tickfont=dict(size=24)  # Increase y-axis label font size
         ),
         barmode='group',
-        legend_title_text='Screen type',
-        legend=dict(x=0.84, y=0.04, font=dict(size=18))  # Increase legend font size
+        # legend_title_text='Screen type',
+        legend=dict(x=0.75, y=0.04, font=dict(size=24))  # Increase legend font size
     )
 
     # Add annotations for each bar to change the font size of the text
@@ -538,17 +538,17 @@ def info_onboarding(df):
     fig.update_layout(
         xaxis=dict(
             title='Percentage of participants choosing each option',
-            title_font=dict(size=22),  # Increase x-axis title font size
+            title_font=dict(size=24),  # Increase x-axis title font size
             tickfont=dict(size=24)  # Increase x-axis label font size
         ),
         yaxis=dict(tickmode='array',
                    tickvals=index + bar_width,
                    ticktext=unique_options_capitalized,
-                   tickfont=dict(size=20)  # Increase y-axis label font size
+                   tickfont=dict(size=24)  # Increase y-axis label font size
                    ),
         barmode='group',
-        legend_title_text='Screen type',
-        legend=dict(x=0.84, y=0.04, font=dict(size=18))  # Increase legend font size
+        # legend_title_text='Screen type',
+        legend=dict(x=0.75, y=0.04, font=dict(size=24))  # Increase legend font size
     )
 
     # Add annotations for each bar to change the font size of the text
