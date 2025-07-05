@@ -6,7 +6,7 @@ The research question driving this study was: What specific information do shutt
 ## Citation
 If you use the code or data for academic work please cite the following paper:
 
-> Alam, M. S., Subramanian, T., Martens, M., Remlinger, W., & Bazilinskyy, P. (2024). From A to B with Ease: User-Centric Interfaces for Shuttle Buses. Adjunct Proceedings of the 16th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (AutoUI). Stanford, CA, USA.
+> Alam, M. S., Subramanian, T., Martens, M., Remlinger, W., & Bazilinskyy, P. (2024, September). From A to B with Ease: User-Centric Interfaces for Shuttle Buses. In Adjunct Proceedings of the 16th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (pp. 111-116). Stanford, CA, USA. https://doi.org/10.1145/3641308.3685033
 
 
 ## Usage of the code
